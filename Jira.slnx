@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Jira/Jira.vcxproj" Id="85801f5e-4658-4aa8-8d26-5ef13f2a6b1c" />
+</Solution>
