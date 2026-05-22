@@ -1,10 +1,12 @@
 #include "../../headers/users/UserValidator.h"
+#include "../../headers/Constants.h"
 #include <stdexcept>
 #include <cctype>
 
 bool UserValidator::validateUsername(const std::string& username) {
-    if (username.length() < 3 || username.length() > 20) {
-        throw std::invalid_argument("Username must be between 3 and 20 characters long.");
+    if (username.size() < Constants::User::MIN_USERNAME_LENGTH ||
+        username.size() > Constants::User::MAX_USERNAME_LENGTH) {
+        throw std::invalid_argument("Invalid username length.");
     }
 
     for (size_t i = 0; i < username.length(); ++i) {
@@ -24,8 +26,9 @@ bool UserValidator::validateUsername(const std::string& username) {
 }
 
 bool UserValidator::validatePassword(const std::string& password) {
-    if (password.length() < 4) {
-        throw std::invalid_argument("Password must be at least 4 characters long.");
+    if (password.size() < Constants::User::MIN_PASSWORD_LENGTH ||
+        password.size() > Constants::User::MAX_PASSWORD_LENGTH) {
+        throw std::invalid_argument("Invalid password length.");
     }
 
     for (size_t i = 0; i < password.length(); ++i) {

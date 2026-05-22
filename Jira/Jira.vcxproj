@@ -159,6 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Comment.h" />
+    <ClInclude Include="headers\Constants.h" />
+    <ClInclude Include="headers\projects\Constants.h" />
     <ClInclude Include="headers\projects\Project.h" />
     <ClInclude Include="headers\projects\ProjectValidator.h" />
     <ClInclude Include="headers\stages\Stage.h" />

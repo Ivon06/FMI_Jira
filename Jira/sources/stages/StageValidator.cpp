@@ -1,9 +1,14 @@
 #include "../../headers/stages/StageValidator.h"
+#include "../../headers/Constants.h"
 #include <stdexcept>
 
 void StageValidator::validateName(const std::string& name) {
     if (name.empty()) {
         throw std::invalid_argument("Stage name cannot be empty.");
+    }
+
+    if (name.size() > Constants::Stage::MAX_NAME_LENGTH) {
+        throw std::invalid_argument("Stage name is too long.");
     }
 }
 
