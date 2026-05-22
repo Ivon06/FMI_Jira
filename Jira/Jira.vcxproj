@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Jira.cpp" />
+    <ClCompile Include="sources\Comment.cpp" />
     <ClCompile Include="sources\users\Administrator.cpp" />
     <ClCompile Include="sources\users\Lecturer.cpp" />
     <ClCompile Include="sources\users\Student.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="sources\users\UserValidator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Comment.h" />
     <ClInclude Include="headers\users\Administrator.h" />
     <ClInclude Include="headers\users\Lecturer.h" />
     <ClInclude Include="headers\users\Student.h" />
