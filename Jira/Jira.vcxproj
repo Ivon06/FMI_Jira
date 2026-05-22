@@ -142,6 +142,10 @@
     <ClCompile Include="headers\tasks\TaskFactory.cpp" />
     <ClCompile Include="Jira.cpp" />
     <ClCompile Include="sources\Comment.cpp" />
+    <ClCompile Include="sources\projects\Project.cpp" />
+    <ClCompile Include="sources\projects\ProjectValidator.cpp" />
+    <ClCompile Include="sources\stages\Stage.cpp" />
+    <ClCompile Include="sources\stages\StageValidator.cpp" />
     <ClCompile Include="sources\tasks\Task.cpp" />
     <ClCompile Include="sources\tasks\TaskFactory.cpp" />
     <ClCompile Include="sources\tasks\TaskValidator.cpp" />
@@ -155,6 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Comment.h" />
+    <ClInclude Include="headers\projects\Project.h" />
+    <ClInclude Include="headers\projects\ProjectValidator.h" />
+    <ClInclude Include="headers\stages\Stage.h" />
+    <ClInclude Include="headers\stages\StageValidator.h" />
     <ClInclude Include="headers\tasks\Task.h" />
     <ClInclude Include="headers\tasks\TaskFactory.h" />
     <ClInclude Include="headers\tasks\TaskValidator.h" />
