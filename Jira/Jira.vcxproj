@@ -139,8 +139,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="headers\tasks\TaskFactory.cpp" />
     <ClCompile Include="Jira.cpp" />
     <ClCompile Include="sources\Comment.cpp" />
+    <ClCompile Include="sources\tasks\Task.cpp" />
+    <ClCompile Include="sources\tasks\TaskFactory.cpp" />
+    <ClCompile Include="sources\tasks\TaskValidator.cpp" />
     <ClCompile Include="sources\users\Administrator.cpp" />
     <ClCompile Include="sources\users\Lecturer.cpp" />
     <ClCompile Include="sources\users\Student.cpp" />
@@ -151,6 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Comment.h" />
+    <ClInclude Include="headers\tasks\Task.h" />
+    <ClInclude Include="headers\tasks\TaskFactory.h" />
+    <ClInclude Include="headers\tasks\TaskValidator.h" />
     <ClInclude Include="headers\users\Administrator.h" />
     <ClInclude Include="headers\users\Lecturer.h" />
     <ClInclude Include="headers\users\Student.h" />

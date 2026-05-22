@@ -18,6 +18,11 @@ public:
 
     Student(unsigned int id,
         const std::string& username,
+        const std::string& password);
+
+    //TODO: remove if needed
+    Student(unsigned int id,
+        const std::string& username,
         const std::string& password,
         int completed,
         int inProgress,

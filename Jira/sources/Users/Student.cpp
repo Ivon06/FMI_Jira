@@ -5,6 +5,12 @@ Student::Student(const std::string& username, const std::string& password)
 	completedTasksCount(0), inProgressTasksCount(0), performanceScore(0) {
 }
 
+Student::Student(unsigned int id,
+    const std::string& username,
+    const std::string& password)
+    : User(id, username, password, UserRole::Student) {
+}
+
 Student::Student(unsigned int id, const std::string& username, const std::string& password,
 	int completed, int inProgress, int score)
 	: User(id, username, password, UserRole::Student),
