@@ -1,4 +1,5 @@
-#include "..\..\headers\tasks\TaskFactory.h"
+#include "../../headers/tasks/TaskFactory.h"
+#include "../../headers/tasks/TaskValidator.h"
 
 
 

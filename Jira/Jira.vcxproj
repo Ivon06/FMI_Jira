@@ -139,11 +139,17 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="headers\tasks\TaskFactory.cpp" />
     <ClCompile Include="Jira.cpp" />
+    <ClCompile Include="sources\commands\Command.cpp" />
+    <ClCompile Include="sources\commands\CommandFactory.cpp" />
+    <ClCompile Include="sources\commands\LoginCommand.cpp" />
+    <ClCompile Include="sources\commands\LogoutCommand.cpp" />
+    <ClCompile Include="sources\commands\RegisterCommand.cpp" />
     <ClCompile Include="sources\Comment.cpp" />
+    <ClCompile Include="sources\Context.cpp" />
     <ClCompile Include="sources\projects\Project.cpp" />
     <ClCompile Include="sources\projects\ProjectValidator.cpp" />
+    <ClCompile Include="sources\services\UserService.cpp" />
     <ClCompile Include="sources\stages\Stage.cpp" />
     <ClCompile Include="sources\stages\StageValidator.cpp" />
     <ClCompile Include="sources\tasks\Task.cpp" />
@@ -158,11 +164,20 @@
     <ClCompile Include="sources\users\UserValidator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\commands\Command.h" />
+    <ClInclude Include="headers\commands\CommandFactory.h" />
+    <ClInclude Include="headers\commands\LoginCommand.h" />
+    <ClInclude Include="headers\commands\LogoutCommand.h" />
+    <ClInclude Include="headers\commands\RegisterCommand.h" />
     <ClInclude Include="headers\Comment.h" />
     <ClInclude Include="headers\Constants.h" />
+    <ClInclude Include="headers\Context.h" />
+    <ClInclude Include="headers\managers\AuthManager.h" />
+    <ClInclude Include="headers\managers\UserManager.h" />
     <ClInclude Include="headers\projects\Constants.h" />
     <ClInclude Include="headers\projects\Project.h" />
     <ClInclude Include="headers\projects\ProjectValidator.h" />
+    <ClInclude Include="headers\services\UserService.h" />
     <ClInclude Include="headers\stages\Stage.h" />
     <ClInclude Include="headers\stages\StageValidator.h" />
     <ClInclude Include="headers\tasks\Task.h" />
@@ -176,6 +191,7 @@
     <ClInclude Include="headers\users\UserFactory.h" />
     <ClInclude Include="headers\users\UserRole.hpp" />
     <ClInclude Include="headers\users\UserValidator.h" />
+    <ClInclude Include="sources\managers\AuthManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
