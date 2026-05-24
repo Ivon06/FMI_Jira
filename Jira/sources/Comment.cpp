@@ -46,7 +46,7 @@ void Comment::print(std::ostream& os) const {
         << '\n';
 
     os << "Created at: "
-        << std::ctime(&createdAt);
+        << createdAt;
 }
 
 std::ostream& operator<<(std::ostream& os,

@@ -7,5 +7,5 @@ class CommandFactory {
 
 public:
 
-	static Command* generateCommand(std::string& cmdLine);
+	static Command* generateCommand(std::string& cmdLine, std::vector<std::string>& tokens);
 };

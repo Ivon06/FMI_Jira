@@ -39,9 +39,11 @@ int main()
 
         try {
 
+            std::vector<std::string> tokens;
+
             Command* command =
                 CommandFactory::generateCommand(
-                    commandLine);
+                    commandLine, tokens);
 
             if (!command) {
 

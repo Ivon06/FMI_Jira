@@ -13,7 +13,7 @@ static void trimExtraSpaces(std::string& str) {
     }
 }
 
-const  std::vector<std::string> splitBySpaces(const std::string& str) {
+std::vector<std::string> splitBySpaces(const std::string& str) {
     std::vector<std::string> result;
     std::string current;
 
@@ -36,10 +36,10 @@ const  std::vector<std::string> splitBySpaces(const std::string& str) {
     return result;
 }
 
-Command* CommandFactory::generateCommand(std::string& cmdLine) {
+Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::string>& tokens) {
     trimExtraSpaces(cmdLine);
 
-    std::vector<std::string> tokens = splitBySpaces(cmdLine);
+    tokens = splitBySpaces(cmdLine);
 
     if (tokens.empty()) {
         return nullptr;

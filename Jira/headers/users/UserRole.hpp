@@ -11,7 +11,7 @@ enum class UserRole {
     Administrator
 };
 
-UserRole stringToRole(const std::string& roleStr) {
+inline UserRole stringToRole(const std::string& roleStr) {
     if (roleStr == "Student") return UserRole::Student;
     if (roleStr == "TeachingAssistant") return UserRole::TeachingAssistant;
     if (roleStr == "Lecturer") return UserRole::Lecturer;
@@ -19,7 +19,7 @@ UserRole stringToRole(const std::string& roleStr) {
     throw std::invalid_argument("Unknown user role: " + roleStr);
 }
 
-std::string roleToString(UserRole role) {
+inline std::string roleToString(UserRole role) {
     switch (role) {
     case UserRole::Student: return "Student";
     case UserRole::TeachingAssistant: return "TeachingAssistant";

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdexcept>
 
+LoginCommand::LoginCommand(std::vector<std::string>& args) : Command(args) {}
+
 void LoginCommand::execute(Context& context) {
     if (args.size() != 2) {
         throw std::invalid_argument("Usage: login <username> <password>");

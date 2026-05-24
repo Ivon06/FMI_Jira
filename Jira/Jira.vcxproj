@@ -172,8 +172,6 @@
     <ClInclude Include="headers\Comment.h" />
     <ClInclude Include="headers\Constants.h" />
     <ClInclude Include="headers\Context.h" />
-    <ClInclude Include="headers\managers\AuthManager.h" />
-    <ClInclude Include="headers\managers\UserManager.h" />
     <ClInclude Include="headers\projects\Constants.h" />
     <ClInclude Include="headers\projects\Project.h" />
     <ClInclude Include="headers\projects\ProjectValidator.h" />
@@ -191,7 +189,6 @@
     <ClInclude Include="headers\users\UserFactory.h" />
     <ClInclude Include="headers\users\UserRole.hpp" />
     <ClInclude Include="headers\users\UserValidator.h" />
-    <ClInclude Include="sources\managers\AuthManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

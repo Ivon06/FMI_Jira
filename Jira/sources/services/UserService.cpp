@@ -3,10 +3,7 @@
 #include "../../headers/users/Administrator.h"
 #include <stdexcept>
 
-void UserService::registerUser(Context& context,
-    const std::string& username,
-    const std::string& password,
-    const std::string& role) {
+void UserService::registerUser(Context& context, const std::string& username, const std::string& password, const std::string& role) {
     requireAdmin(context);
 
     if (usernameExists(context, username)) {
@@ -20,9 +17,7 @@ void UserService::registerUser(Context& context,
     context.markChanged();
 }
 
-void UserService::login(Context& context,
-    const std::string& username,
-    const std::string& password) {
+void UserService::login(Context& context, const std::string& username, const std::string& password) {
     if (context.isUserLoggedIn()) {
         throw std::runtime_error("User already logged in.");
     }
@@ -52,13 +47,12 @@ User* UserService::getCurrentUser(Context& context) {
     return findUserById(context, context.getCurrentUserId());
 }
 
-User* UserService::findUserById(Context& context,
-    unsigned int id) {
-    Administrator& admin = Administrator::getInstance();
+User* UserService::findUserById(Context& context,  unsigned int id) {
+  /*  Administrator& admin = Administrator::getInstance();
 
     if (admin.getId() == id) {
         return &admin;
-    }
+    }*/
 
     for (auto& user : context.getUsers()) {
         if (user->getId() == id) {
@@ -69,13 +63,12 @@ User* UserService::findUserById(Context& context,
     return nullptr;
 }
 
-User* UserService::findUserByUsername(Context& context,
-    const std::string& username) {
-    Administrator& admin = Administrator::getInstance();
+User* UserService::findUserByUsername(Context& context, const std::string& username) {
+   /* Administrator& admin = Administrator::getInstance();
 
     if (admin.getUsername() == username) {
         return &admin;
-    }
+    }*/
 
     for (auto& user : context.getUsers()) {
         if (user->getUsername() == username) {
@@ -86,8 +79,7 @@ User* UserService::findUserByUsername(Context& context,
     return nullptr;
 }
 
-bool UserService::usernameExists(Context& context,
-    const std::string& username) {
+bool UserService::usernameExists(Context& context, const std::string& username) {
     return findUserByUsername(context, username) != nullptr;
 }
 

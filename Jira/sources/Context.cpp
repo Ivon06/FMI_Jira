@@ -1,10 +1,22 @@
 #include "../headers/Context.h"
 #include <stdexcept>
+#include "../headers/users/Administrator.h"
 
 Context::Context()
     : currentUserId(0),
     hasLoggedUser(false),
     hasUnsavedChanges(false) {
+    
+
+    if (this->users.size() == 0) {
+        seedAdmin();
+    }
+}
+
+void Context::seedAdmin() {
+    users.push_back(
+        std::make_unique<Administrator>("admin", "admin")
+    );
 }
 
 std::vector<std::unique_ptr<User>>& Context::getUsers() {
