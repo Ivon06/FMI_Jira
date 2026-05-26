@@ -5,9 +5,9 @@
 
 class Command {
 protected:
-    std::vector<std::string>& args;
+    std::vector<std::string> args;
 public:
-    Command(std::vector<std::string>& args) : args(args) {}
+    explicit Command(const std::vector<std::string>& args) : args(args) {}
 
     virtual ~Command() = default;
 

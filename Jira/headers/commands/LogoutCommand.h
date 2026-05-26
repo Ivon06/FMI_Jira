@@ -3,6 +3,6 @@
 
 class LogoutCommand : public Command {
 public:
-    LogoutCommand(std::vector<std::string>& args) : Command(args) {}
+    explicit LogoutCommand(const std::vector<std::string>& args);
     void execute(Context& context) override;
 };

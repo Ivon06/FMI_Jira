@@ -142,6 +142,7 @@
     <ClCompile Include="Jira.cpp" />
     <ClCompile Include="sources\commands\Command.cpp" />
     <ClCompile Include="sources\commands\CommandFactory.cpp" />
+    <ClCompile Include="sources\commands\CreateProjectCommand.cpp" />
     <ClCompile Include="sources\commands\LoginCommand.cpp" />
     <ClCompile Include="sources\commands\LogoutCommand.cpp" />
     <ClCompile Include="sources\commands\RegisterCommand.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="sources\Context.cpp" />
     <ClCompile Include="sources\projects\Project.cpp" />
     <ClCompile Include="sources\projects\ProjectValidator.cpp" />
+    <ClCompile Include="sources\services\ProjectService.cpp" />
     <ClCompile Include="sources\services\UserService.cpp" />
     <ClCompile Include="sources\stages\Stage.cpp" />
     <ClCompile Include="sources\stages\StageValidator.cpp" />
@@ -166,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="headers\commands\Command.h" />
     <ClInclude Include="headers\commands\CommandFactory.h" />
+    <ClInclude Include="headers\commands\CreateProjectCommand.h" />
     <ClInclude Include="headers\commands\LoginCommand.h" />
     <ClInclude Include="headers\commands\LogoutCommand.h" />
     <ClInclude Include="headers\commands\RegisterCommand.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="headers\projects\Constants.h" />
     <ClInclude Include="headers\projects\Project.h" />
     <ClInclude Include="headers\projects\ProjectValidator.h" />
+    <ClInclude Include="headers\services\ProjectService.h" />
     <ClInclude Include="headers\services\UserService.h" />
     <ClInclude Include="headers\stages\Stage.h" />
     <ClInclude Include="headers\stages\StageValidator.h" />

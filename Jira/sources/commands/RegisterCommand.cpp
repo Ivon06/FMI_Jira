@@ -3,6 +3,10 @@
 #include <iostream>
 #include <stdexcept>
 
+RegisterCommand::RegisterCommand(const std::vector<std::string>& args)
+    : Command(args) {
+}
+
 void RegisterCommand::execute(Context& context) {
     
     if (args.size() != 3) {

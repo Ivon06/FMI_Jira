@@ -3,6 +3,6 @@
 
 class RegisterCommand : public Command {
 public:
-	RegisterCommand(std::vector<std::string>& args) : Command(args) {}
+    explicit RegisterCommand(const std::vector<std::string>& args);
     void execute(Context& context) override;
 };
