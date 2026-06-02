@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Jira.cpp" />
+    <ClCompile Include="sources\commands\AddUserToProjectCommand.cpp" />
     <ClCompile Include="sources\commands\Command.cpp" />
     <ClCompile Include="sources\commands\CommandFactory.cpp" />
     <ClCompile Include="sources\commands\CreateProjectCommand.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="sources\users\UserValidator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\commands\AddUserToProjectCommand.h" />
     <ClInclude Include="headers\commands\Command.h" />
     <ClInclude Include="headers\commands\CommandFactory.h" />
     <ClInclude Include="headers\commands\CreateProjectCommand.h" />

@@ -102,3 +102,42 @@ void ProjectService::requireAdmin( Context& context) {
             "Only administrator can perform this action.");
     }
 }
+
+void ProjectService::addUserToProject(Context& context, const std::string& username, const std::string& projectName) {
+
+    requireAdmin(context);
+
+    User* user =
+        UserService::findUserByUsername(
+            context,
+            username);
+
+    if (user->getRole() == UserRole::Administrator) {
+        throw std::invalid_argument(
+            "Administrator cannot be added to projects.");
+    }
+
+    if (!user) {
+        throw std::invalid_argument(
+            "User does not exist.");
+    }
+
+    Project* project =
+        findProjectByName(
+            context,
+            projectName);
+
+    if (!project) {
+        throw std::invalid_argument(
+            "Project does not exist.");
+    }
+
+    if (project->containsMember(user->getId())) {
+        throw std::invalid_argument(
+            "User is already a member of this project.");
+    }
+
+    project->addMember(user->getId());
+
+    context.markChanged();
+}

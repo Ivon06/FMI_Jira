@@ -66,6 +66,9 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "create-project") {
 		return new CreateProjectCommand(tokens);
 	}
+	else if (commandName == "add-user-to-project") {
+		return new AddUserToProjectCommand(tokens);
+	}
 	
 
 	return nullptr;

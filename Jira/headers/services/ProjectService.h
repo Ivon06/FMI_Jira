@@ -18,6 +18,8 @@ public:
 
     static void archiveProject(Context& context, const std::string& projectName);
 
+    static void addUserToProject(Context& context, const std::string& username, const std::string& projectName);
+
 private:
     static void requireAdmin(Context& context);
 };

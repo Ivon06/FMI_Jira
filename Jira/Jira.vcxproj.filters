@@ -90,6 +90,9 @@
     <ClCompile Include="sources\commands\CreateProjectCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\commands\AddUserToProjectCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\users\User.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\commands\CreateProjectCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\AddUserToProjectCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

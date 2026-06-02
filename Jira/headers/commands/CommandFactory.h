@@ -3,6 +3,7 @@
 #include "../../headers/commands/RegisterCommand.h"
 #include "../../headers/commands/LogoutCommand.h"
 #include "../../headers/commands/CreateProjectCommand.h"
+#include "../../headers/commands/AddUserToProjectCommand.h"
 
 class CommandFactory {
 
