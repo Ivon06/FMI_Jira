@@ -4,6 +4,10 @@
 #include "../../headers/commands/LogoutCommand.h"
 #include "../../headers/commands/CreateProjectCommand.h"
 #include "../../headers/commands/AddUserToProjectCommand.h"
+#include "../../headers/commands/AddStageCommand.h"
+#include "../../headers/commands/StartStageCommand.h"
+#include "../../headers/commands/FinishStageCommand.h"
+#include "../../headers/commands/FinalizeProjectCommand.h"
 
 class CommandFactory {
 

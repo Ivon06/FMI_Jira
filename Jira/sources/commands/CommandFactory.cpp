@@ -69,7 +69,19 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "add-user-to-project") {
 		return new AddUserToProjectCommand(tokens);
 	}
-	
+	else if (commandName == "add-stage") {
+		return new AddStageCommand(tokens);
+	}
+	else if (commandName == "start-stage") {
+		return new StartStageCommand(tokens);
+	}
+	else if (commandName == "finish-stage") {
+		return new FinishStageCommand(tokens);
+	}
+	else if (commandName == "finalize-project") {
+		return new FinalizeProjectCommand(tokens);
+	}
+
 
 	return nullptr;
 }

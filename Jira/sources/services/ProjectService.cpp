@@ -55,6 +55,12 @@ void ProjectService::addUserToProject(Context& context, const std::string& usern
         throw std::invalid_argument("User does not exist.");
     }
 
+    if (user->getRole() == UserRole::Administrator) {
+        throw std::invalid_argument(
+            "Administrator cannot be added to projects.");
+    }
+
+
     Project* project = findProjectByName(context, projectName);
 
     if (project == nullptr) {
@@ -63,6 +69,11 @@ void ProjectService::addUserToProject(Context& context, const std::string& usern
 
     if (project->getStatus() == ProjectStatus::Finished) {
         throw std::runtime_error("Cannot add users to finished project.");
+    }
+
+    if (project->containsMember(user->getId())) {
+        throw std::invalid_argument(
+            "User is already a member of this project.");
     }
 
     project->addMember(user->getId());
@@ -79,8 +90,11 @@ void ProjectService::archiveProject(Context& context, const std::string& project
         throw std::invalid_argument("Project does not exist.");
     }
 
-    project->finalize();
+    if (project->getStatus() == ProjectStatus::Finished) {
+        throw std::runtime_error("Project is already archived.");
+    }
 
+    project->finalize();
     context.markChanged();
 }
 
@@ -103,41 +117,29 @@ void ProjectService::requireAdmin( Context& context) {
     }
 }
 
-void ProjectService::addUserToProject(Context& context, const std::string& username, const std::string& projectName) {
+void ProjectService::finalizeProject(Context& context, const std::string& projectName) {
 
-    requireAdmin(context);
+    requireLecturer(context);
 
-    User* user =
-        UserService::findUserByUsername(
-            context,
-            username);
+    Project* project = findProjectByName(context, projectName);
 
-    if (user->getRole() == UserRole::Administrator) {
-        throw std::invalid_argument(
-            "Administrator cannot be added to projects.");
+    if (project == nullptr) {
+        throw std::invalid_argument("Project does not exist.");
     }
 
-    if (!user) {
-        throw std::invalid_argument(
-            "User does not exist.");
-    }
-
-    Project* project =
-        findProjectByName(
-            context,
-            projectName);
-
-    if (!project) {
-        throw std::invalid_argument(
-            "Project does not exist.");
-    }
-
-    if (project->containsMember(user->getId())) {
-        throw std::invalid_argument(
-            "User is already a member of this project.");
-    }
-
-    project->addMember(user->getId());
+    project->finalize();
 
     context.markChanged();
+}
+
+void ProjectService::requireLecturer(Context& context) {
+    User* currentUser = UserService::getCurrentUser(context);
+
+    if (currentUser == nullptr) {
+        throw std::runtime_error("No logged user.");
+    }
+
+    if (currentUser->getRole() != UserRole::Lecturer) {
+        throw std::runtime_error("Only lecturer can perform this action.");
+    }
 }
