@@ -143,3 +143,13 @@ void ProjectService::requireLecturer(Context& context) {
         throw std::runtime_error("Only lecturer can perform this action.");
     }
 }
+
+Project* ProjectService::findProjectByTaskId(Context& context, unsigned int taskId) {
+    for (Project& project : context.getProjects()) {
+        if (project.containsTask(taskId)) {
+            return &project;
+        }
+    }
+
+    return nullptr;
+}

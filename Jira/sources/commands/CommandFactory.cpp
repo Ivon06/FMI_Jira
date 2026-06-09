@@ -81,6 +81,24 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "finalize-project") {
 		return new FinalizeProjectCommand(tokens);
 	}
+	else if (commandName == "create-task") {
+		return new CreateTaskCommand(tokens);
+	}
+	else if (commandName == "assign-task") {
+		return new AssignTaskCommand(tokens);
+	}
+	else if (commandName == "change-task-status") {
+		return new ChangeTaskStatusCommand(tokens);
+	}
+	else if (commandName == "change-task-priority") {
+		return new ChangeTaskPriorityCommand(tokens);
+	}
+	else if (commandName == "grade-task") {
+		return new GradeTaskCommand(tokens);
+	}
+	else if (commandName == "add-comment") {
+		return new AddCommentCommand(tokens);
+	}
 
 
 	return nullptr;

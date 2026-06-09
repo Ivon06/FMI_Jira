@@ -20,6 +20,8 @@ public:
 
     static void finalizeProject(Context& context, const std::string& projectName);
 
+    static Project* findProjectByTaskId(Context& context, unsigned int taskId);
+
 private:
     static void requireAdmin(Context& context);
     static void requireLecturer(Context& context);

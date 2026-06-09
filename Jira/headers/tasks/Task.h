@@ -30,6 +30,8 @@ std::string taskTypeToString(TaskType type);
 std::string taskPriorityToString(TaskPriority priority);
 std::string taskStatusToString(TaskStatus status);
 
+
+
 class Task {
 private:
     static unsigned int nextId;
@@ -128,3 +130,31 @@ public:
     friend std::ostream& operator<<(std::ostream& os,
         const Task& task);
 };
+
+
+inline TaskType stringToTaskType(const std::string& str) {
+    if (str == "Bug") return TaskType::Bug;
+    if (str == "Feature") return TaskType::Feature;
+    if (str == "Task") return TaskType::Task;
+    if (str == "Improvement") return TaskType::Improvement;
+
+    throw std::invalid_argument("Invalid task type.");
+}
+
+inline TaskPriority stringToTaskPriority(const std::string& str) {
+    if (str == "Low") return TaskPriority::Low;
+    if (str == "Medium") return TaskPriority::Medium;
+    if (str == "High") return TaskPriority::High;
+    if (str == "Critical") return TaskPriority::Critical;
+
+    throw std::invalid_argument("Invalid task priority.");
+}
+
+inline TaskStatus stringToTaskStatus(const std::string& str) {
+    if (str == "ToDo") return TaskStatus::ToDo;
+    if (str == "InProgress") return TaskStatus::InProgress;
+    if (str == "InReview") return TaskStatus::InReview;
+    if (str == "Done") return TaskStatus::Done;
+
+    throw std::invalid_argument("Invalid task status.");
+}

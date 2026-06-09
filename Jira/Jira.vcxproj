@@ -139,14 +139,20 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="headers\commands\AddCommentCommand.cpp" />
     <ClCompile Include="Jira.cpp" />
     <ClCompile Include="sources\commands\AddStageCommand.cpp" />
     <ClCompile Include="sources\commands\AddUserToProjectCommand.cpp" />
+    <ClCompile Include="sources\commands\AssignTaskCommand.cpp" />
+    <ClCompile Include="sources\commands\ChangeTaskPriorityCommand.cpp" />
+    <ClCompile Include="sources\commands\ChangeTaskStatusCommand.cpp" />
     <ClCompile Include="sources\commands\Command.cpp" />
     <ClCompile Include="sources\commands\CommandFactory.cpp" />
     <ClCompile Include="sources\commands\CreateProjectCommand.cpp" />
+    <ClCompile Include="sources\commands\CreateTaskCommand.cpp" />
     <ClCompile Include="sources\commands\FinalizeProjectCommand.cpp" />
     <ClCompile Include="sources\commands\FinishStageCommand.cpp" />
+    <ClCompile Include="sources\commands\GradeTaskCommand.cpp" />
     <ClCompile Include="sources\commands\LoginCommand.cpp" />
     <ClCompile Include="sources\commands\LogoutCommand.cpp" />
     <ClCompile Include="sources\commands\RegisterCommand.cpp" />
@@ -157,6 +163,7 @@
     <ClCompile Include="sources\projects\ProjectValidator.cpp" />
     <ClCompile Include="sources\services\ProjectService.cpp" />
     <ClCompile Include="sources\services\StageService.cpp" />
+    <ClCompile Include="sources\services\TaskService.cpp" />
     <ClCompile Include="sources\services\UserService.cpp" />
     <ClCompile Include="sources\stages\Stage.cpp" />
     <ClCompile Include="sources\stages\StageValidator.cpp" />
@@ -172,13 +179,19 @@
     <ClCompile Include="sources\users\UserValidator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\commands\AddCommentCommand.h" />
     <ClInclude Include="headers\commands\AddStageCommand.h" />
     <ClInclude Include="headers\commands\AddUserToProjectCommand.h" />
+    <ClInclude Include="headers\commands\AssignTaskCommand.h" />
+    <ClInclude Include="headers\commands\ChangeTaskPriorityCommand.h" />
+    <ClInclude Include="headers\commands\ChangeTaskStatusCommand.h" />
     <ClInclude Include="headers\commands\Command.h" />
     <ClInclude Include="headers\commands\CommandFactory.h" />
     <ClInclude Include="headers\commands\CreateProjectCommand.h" />
+    <ClInclude Include="headers\commands\CreateTaskCommand.h" />
     <ClInclude Include="headers\commands\FinalizeProjectCommand.h" />
     <ClInclude Include="headers\commands\FinishStageCommand.h" />
+    <ClInclude Include="headers\commands\GradeTaskCommand.h" />
     <ClInclude Include="headers\commands\LoginCommand.h" />
     <ClInclude Include="headers\commands\LogoutCommand.h" />
     <ClInclude Include="headers\commands\RegisterCommand.h" />
@@ -191,6 +204,7 @@
     <ClInclude Include="headers\projects\ProjectValidator.h" />
     <ClInclude Include="headers\services\ProjectService.h" />
     <ClInclude Include="headers\services\StageService.h" />
+    <ClInclude Include="headers\services\TaskService.h" />
     <ClInclude Include="headers\services\UserService.h" />
     <ClInclude Include="headers\stages\Stage.h" />
     <ClInclude Include="headers\stages\StageValidator.h" />

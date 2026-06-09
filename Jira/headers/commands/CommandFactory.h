@@ -8,6 +8,13 @@
 #include "../../headers/commands/StartStageCommand.h"
 #include "../../headers/commands/FinishStageCommand.h"
 #include "../../headers/commands/FinalizeProjectCommand.h"
+#include "../../headers/commands/CreateTaskCommand.h"
+#include "../../headers/commands/AssignTaskCommand.h"
+#include "../../headers/commands/ChangeTaskStatusCommand.h"
+#include "../../headers/commands/ChangeTaskPriorityCommand.h"
+#include "../../headers/commands/GradeTaskCommand.h"
+#include "../../headers/commands/AddCommentCommand.h"
+
 
 class CommandFactory {
 

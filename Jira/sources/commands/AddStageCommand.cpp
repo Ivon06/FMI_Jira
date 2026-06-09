@@ -10,6 +10,7 @@ AddStageCommand::AddStageCommand(const std::vector<std::string>& args)
 }
 
 void AddStageCommand::execute(Context& context) {
+
     if (args.size() != 4) {
         throw std::invalid_argument("Usage: add-stage <project_name> <stage_name> <start_timestamp> <end_timestamp>");
     }
