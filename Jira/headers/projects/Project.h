@@ -9,8 +9,8 @@ enum class ProjectStatus {
     Finished
 };
 
-std::string projectStatusToString(
-    ProjectStatus status);
+std::string projectStatusToString(ProjectStatus status);
+ProjectStatus stringToProjectStatus(const std::string& str);
 
 class Project {
 private:
@@ -31,13 +31,9 @@ private:
     void print(std::ostream& os) const;
 
 public:
-    Project(const std::string& name,
-        const std::string& description);
+    Project(const std::string& name, const std::string& description);
 
-    Project(unsigned int id,
-        const std::string& name,
-        const std::string& description,
-        ProjectStatus status);
+    Project(unsigned int id, const std::string& name, const std::string& description, ProjectStatus status, const std::vector<unsigned int>& memberIds, const std::vector<unsigned int>& taskIds, const std::vector<Stage>& stages);
 
     unsigned int getId() const;
 
@@ -47,14 +43,11 @@ public:
 
     ProjectStatus getStatus() const;
 
-    const std::vector<unsigned int>&
-        getMemberIds() const;
+    const std::vector<unsigned int>& getMemberIds() const;
 
-    const std::vector<unsigned int>&
-        getTaskIds() const;
+    const std::vector<unsigned int>& getTaskIds() const;
 
-    const std::vector<Stage>&
-        getStages() const;
+    const std::vector<Stage>& getStages() const;
 
     void addMember(unsigned int userId);
 
@@ -68,20 +61,17 @@ public:
 
     void addStage(const Stage& stage);
 
-    Stage* getStageByName(
-        const std::string& stageName);
+    Stage* getStageByName(const std::string& stageName);
 
-    const Stage* getStageByName(
-        const std::string& stageName) const;
+    const Stage* getStageByName(const std::string& stageName) const;
 
-    bool containsStage(
-        const std::string& stageName) const;
+    bool containsStage(const std::string& stageName) const;
 
     void finalize();
 
     void serialize(std::ostream& os) const;
 
-    friend std::ostream& operator<<(
-        std::ostream& os,
-        const Project& project);
+    static Project deserialize(std::istream& is);
+
+    friend std::ostream& operator<<(std::ostream& os, const Project& project);
 };

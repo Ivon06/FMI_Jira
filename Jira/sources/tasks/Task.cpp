@@ -66,95 +66,15 @@ std::string taskStatusToString(TaskStatus status) {
     }
 }
 
-Task::Task(const std::string& title,
-    const std::string& description,
-    TaskType type,
-    TaskPriority priority,
-    unsigned int creatorId,
-    std::time_t deadline,
-    int points)
-    : id(nextId++),
-    title(title),
-    description(description),
-    type(type),
-    priority(priority),
-    status(TaskStatus::ToDo),
-    creatorId(creatorId),
-    assigneeId(0),
-    deadline(deadline),
-    points(points),
-    grade(0.0) {
+Task::Task(const std::string& title, const std::string& description, TaskType type, TaskPriority priority, unsigned int creatorId, std::time_t deadline, int points)
+    : id(nextId++), title(title), description(description), type(type), priority(priority), status(TaskStatus::ToDo), creatorId(creatorId), assigneeId(0), deadline(deadline), points(points), grade(0.0) {
 }
 
-Task::Task(unsigned int id,
-    const std::string& title,
-    const std::string& description,
-    TaskType type,
-    TaskPriority priority,
-    TaskStatus status,
-    unsigned int creatorId,
-    unsigned int assigneeId,
-    std::time_t deadline,
-    int points,
-    double grade)
-    : id(id),
-    title(title),
-    description(description),
-    type(type),
-    priority(priority),
-    status(status),
-    creatorId(creatorId),
-    assigneeId(assigneeId),
-    deadline(deadline),
-    points(points),
-    grade(grade) {
-
+Task::Task(unsigned int id, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, TaskStatus status, unsigned int creatorId, unsigned int assigneeId, std::time_t deadline, int points, double grade, const std::vector<Comment>& comments, const std::vector<std::string>& tags, const std::vector<std::string>& history)
+    : id(id), title(title), description(description), type(type), priority(priority), status(status), creatorId(creatorId), assigneeId(assigneeId), deadline(deadline), points(points), grade(grade), comments(comments), tags(tags), history(history) {
     if (id >= nextId) {
         nextId = id + 1;
     }
-}
-
-void Task::print(std::ostream& os) const {
-
-    os << "Task ID: "
-        << id
-        << '\n';
-
-    os << "Title: "
-        << title
-        << '\n';
-
-    os << "Description: "
-        << description
-        << '\n';
-
-    os << "Type: "
-        << taskTypeToString(type)
-        << '\n';
-
-    os << "Priority: "
-        << taskPriorityToString(priority)
-        << '\n';
-
-    os << "Status: "
-        << taskStatusToString(status)
-        << '\n';
-
-    os << "Creator ID: "
-        << creatorId
-        << '\n';
-
-    os << "Assignee ID: "
-        << assigneeId
-        << '\n';
-
-    os << "Points: "
-        << points
-        << '\n';
-
-    os << "Grade: "
-        << grade
-        << '\n';
 }
 
 unsigned int Task::getId() const {
@@ -217,24 +137,21 @@ void Task::assignTo(unsigned int assigneeId) {
 
     this->assigneeId = assigneeId;
 
-    addHistoryEntry(
-        "Task assigned.");
+    addHistoryEntry("Task assigned.");
 }
 
 void Task::changeStatus(TaskStatus newStatus) {
 
     status = newStatus;
 
-    addHistoryEntry(
-        "Task status changed.");
+    addHistoryEntry("Task status changed.");
 }
 
 void Task::changePriority(TaskPriority newPriority) {
 
     priority = newPriority;
 
-    addHistoryEntry(
-        "Task priority changed.");
+    addHistoryEntry("Task priority changed.");
 }
 
 void Task::setGrade(double grade) {
@@ -246,8 +163,7 @@ void Task::setGrade(double grade) {
 
     this->grade = grade;
 
-    addHistoryEntry(
-        "Task graded.");
+    addHistoryEntry("Task graded.");
 }
 
 void Task::addComment(const Comment& comment) {
@@ -258,8 +174,7 @@ void Task::addTag(const std::string& tag) {
     tags.push_back(tag);
 }
 
-void Task::addHistoryEntry(
-    const std::string& entry) {
+void Task::addHistoryEntry(const std::string& entry) {
 
     history.push_back(entry);
 }
@@ -269,24 +184,122 @@ bool Task::isCompleted() const {
 }
 
 void Task::serialize(std::ostream& os) const {
+    os << id << '\n';
+    os << title << '\n';
+    os << description << '\n';
+    os << taskTypeToString(type) << '\n';
+    os << taskPriorityToString(priority) << '\n';
+    os << taskStatusToString(status) << '\n';
+    os << creatorId << '\n';
+    os << assigneeId << '\n';
+    os << deadline << '\n';
+    os << points << '\n';
+    os << grade << '\n';
 
-    os << id << '\n'
-        << title << '\n'
-        << description << '\n'
-        << static_cast<int>(type) << '\n'
-        << static_cast<int>(priority) << '\n'
-        << static_cast<int>(status) << '\n'
-        << creatorId << '\n'
-        << assigneeId << '\n'
-        << deadline << '\n'
-        << points << '\n'
-        << grade << '\n';
+    os << comments.size() << '\n';
+    for (const Comment& comment : comments) {
+        comment.serialize(os);
+    }
+
+    os << tags.size() << '\n';
+    for (const std::string& tag : tags) {
+        os << tag << '\n';
+    }
+
+    os << history.size() << '\n';
+    for (const std::string& entry : history) {
+        os << entry << '\n';
+    }
 }
 
-std::ostream& operator<<(std::ostream& os,
-    const Task& task) {
+Task Task::deserialize(std::istream& is) {
+    unsigned int id;
+    std::string title;
+    std::string description;
+    std::string typeStr;
+    std::string priorityStr;
+    std::string statusStr;
+    unsigned int creatorId;
+    unsigned int assigneeId;
+    std::time_t deadline;
+    int points;
+    double grade;
+
+    is >> id;
+    is.ignore();
+
+    std::getline(is, title);
+    std::getline(is, description);
+    std::getline(is, typeStr);
+    std::getline(is, priorityStr);
+    std::getline(is, statusStr);
+
+    is >> creatorId;
+    is.ignore();
+
+    is >> assigneeId;
+    is.ignore();
+
+    is >> deadline;
+    is.ignore();
+
+    is >> points;
+    is.ignore();
+
+    is >> grade;
+    is.ignore();
+
+    size_t commentsCount;
+    is >> commentsCount;
+    is.ignore();
+
+    std::vector<Comment> comments;
+    for (size_t i = 0; i < commentsCount; i++) {
+        comments.push_back(Comment::deserialize(is));
+    }
+
+    size_t tagsCount;
+    is >> tagsCount;
+    is.ignore();
+
+    std::vector<std::string> tags;
+    for (size_t i = 0; i < tagsCount; i++) {
+        std::string tag;
+        std::getline(is, tag);
+        tags.push_back(tag);
+    }
+
+    size_t historyCount;
+    is >> historyCount;
+    is.ignore();
+
+    std::vector<std::string> history;
+    for (size_t i = 0; i < historyCount; i++) {
+        std::string entry;
+        std::getline(is, entry);
+        history.push_back(entry);
+    }
+
+    return Task(id, title, description, stringToTaskType(typeStr), stringToTaskPriority(priorityStr), stringToTaskStatus(statusStr), creatorId, assigneeId, deadline, points, grade, comments, tags, history);
+}
+
+std::ostream& operator<<(std::ostream& os, const Task& task) {
 
     task.print(os);
 
     return os;
+}
+
+void Task::print(std::ostream& os) const {
+    os << "Task ID: " << id << '\n';
+    os << "Title: " << title << '\n';
+    os << "Description: " << description << '\n';
+    os << "Type: " << taskTypeToString(type) << '\n';
+    os << "Priority: " << taskPriorityToString(priority) << '\n';
+    os << "Status: " << taskStatusToString(status) << '\n';
+    os << "Creator ID: " << creatorId << '\n';
+    os << "Assignee ID: " << assigneeId << '\n';
+    os << "Deadline: " << deadline << '\n';
+    os << "Points: " << points << '\n';
+    os << "Grade: " << grade << '\n';
 }

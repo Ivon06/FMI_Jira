@@ -31,6 +31,10 @@ std::string taskPriorityToString(TaskPriority priority);
 std::string taskStatusToString(TaskStatus status);
 
 
+TaskType stringToTaskType(const std::string& str);
+TaskPriority stringToTaskPriority(const std::string& str);
+TaskStatus stringToTaskStatus(const std::string& str);
+
 
 class Task {
 private:
@@ -61,25 +65,10 @@ protected:
     void print(std::ostream& os) const;
 
 public:
-    Task(const std::string& title,
-        const std::string& description,
-        TaskType type,
-        TaskPriority priority,
-        unsigned int creatorId,
-        std::time_t deadline,
-        int points);
+    Task(const std::string& title, const std::string& description, TaskType type, TaskPriority priority, unsigned int creatorId, std::time_t deadline, int points);
 
-    Task(unsigned int id,
-        const std::string& title,
-        const std::string& description,
-        TaskType type,
-        TaskPriority priority,
-        TaskStatus status,
-        unsigned int creatorId,
-        unsigned int assigneeId,
-        std::time_t deadline,
-        int points,
-        double grade);
+    Task(unsigned int id, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, TaskStatus status, unsigned int creatorId, unsigned int assigneeId, std::time_t deadline, int points, double grade, const std::vector<Comment>& comments, const std::vector<std::string>& tags, const std::vector<std::string>& history);
+
 
     unsigned int getId() const;
 
@@ -126,6 +115,7 @@ public:
     bool isCompleted() const;
 
     void serialize(std::ostream& os) const;
+    static Task deserialize(std::istream& is);
 
     friend std::ostream& operator<<(std::ostream& os,
         const Task& task);

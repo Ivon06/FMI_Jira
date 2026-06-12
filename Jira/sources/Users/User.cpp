@@ -12,7 +12,9 @@ User::User(const std::string& username, const std::string& password, UserRole ro
 
 User::User(unsigned int id, const std::string& username, const std::string& password, UserRole role) : id(id), username(username), password(password), role(role)
 {
-
+    if (id >= nextId) {
+        nextId = id + 1;
+    }
 }
 
 const unsigned int User::getId() const {
@@ -89,7 +91,7 @@ void User::serialize(std::ostream& os) const {
     os << id << '\n'
         << username << '\n'
         << password << '\n'
-        << static_cast<int>(role) << '\n';
+        << roleToString(role) << '\n';
 }
 
 std::ostream& operator<<(std::ostream& os, const User& user) {

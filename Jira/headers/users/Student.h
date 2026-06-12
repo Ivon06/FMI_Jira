@@ -43,6 +43,6 @@ public:
     int getInProgressTasksCount() const;
     int getPerformanceScore() const;
 
-    void serialize(std::ostream& os) const override;
+    //void serialize(std::ostream& os) const override;
 
 };

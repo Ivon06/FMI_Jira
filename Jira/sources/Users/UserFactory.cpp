@@ -6,6 +6,7 @@
 #include "../../headers/users/Student.h"
 #include <stdexcept>
 #include <memory>
+#include "../../headers/users/Administrator.h"
 
 std::unique_ptr<User> UserFactory::createUser(const std::string& username, const std::string& password, const std::string& roleStr) {
 
@@ -45,8 +46,8 @@ std::unique_ptr<User> UserFactory::restoreUser(unsigned int id, const std::strin
     else if (role == UserRole::Lecturer) {
         return std::make_unique<Lecturer>(id, username, password);
     }
-    else if (role == UserRole::Administrator) {
-        throw std::invalid_argument("Administrator should be restored separately.");
+     else if (role == UserRole::Administrator) {
+        return std::make_unique<Administrator>(id, username, password);
     }
 
 

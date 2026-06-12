@@ -23,4 +23,8 @@ private:
     static void requireStudent(Context& context);
     static void requireTeachingAssistantOrLecturer(Context& context);
     static void requireLecturer(Context& context);
+
+    static Project* getProjectForTask(Context& context, unsigned int taskId);
+    static bool isValidStatusTransition(TaskStatus currentStatus, TaskStatus newStatus);
+
 };

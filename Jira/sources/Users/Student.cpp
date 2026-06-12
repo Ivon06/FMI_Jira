@@ -91,19 +91,19 @@ int Student::getPerformanceScore() const {
     return performanceScore;
 }
 
-void Student::serialize(std::ostream& os) const {
-
-    User::serialize(os);
-
-    os << joinedProjectIds.size() << '\n';
-
-    for (unsigned int id : joinedProjectIds) {
-        os << id << ' ';
-    }
-
-    os << '\n';
-
-    os << completedTasksCount << '\n'
-        << inProgressTasksCount << '\n'
-        << performanceScore << '\n';
-}
+//void Student::serialize(std::ostream& os) const {
+//
+//    User::serialize(os);
+//
+//    os << joinedProjectIds.size() << '\n';
+//
+//    for (unsigned int id : joinedProjectIds) {
+//        os << id << ' ';
+//    }
+//
+//    os << '\n';
+//
+//    os << completedTasksCount << '\n'
+//        << inProgressTasksCount << '\n'
+//        << performanceScore << '\n';
+//}

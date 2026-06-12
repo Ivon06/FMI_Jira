@@ -11,6 +11,7 @@ enum class StageStatus {
 };
 
 std::string stageStatusToString(StageStatus status);
+StageStatus stringToStageStatus(const std::string& str);
 
 class Stage {
 private:
@@ -23,14 +24,10 @@ private:
     void print(std::ostream& os) const;
 
 public:
-    Stage(const std::string& name,
-        std::time_t startDate,
-        std::time_t endDate);
+    Stage(const std::string& name, std::time_t startDate, std::time_t endDate);
 
-    Stage(const std::string& name,
-        std::time_t startDate,
-        std::time_t endDate,
-        StageStatus status);
+    Stage(const std::string& name, std::time_t startDate, std::time_t endDate, StageStatus status, const std::vector<unsigned int>& taskIds);
+
 
     const std::string& getName() const;
     std::time_t getStartDate() const;
@@ -46,6 +43,8 @@ public:
     bool containsTask(unsigned int taskId) const;
 
     void serialize(std::ostream& os) const;
+    static Stage deserialize(std::istream& is);
+
 
     friend std::ostream& operator<<(std::ostream& os,
         const Stage& stage);

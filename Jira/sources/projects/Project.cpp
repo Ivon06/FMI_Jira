@@ -3,39 +3,34 @@
 
 unsigned int Project::nextId = 1;
 
-std::string projectStatusToString(
-    ProjectStatus status) {
-
-    switch (status) {
-
-    case ProjectStatus::Active:
+std::string projectStatusToString(ProjectStatus status) {
+    if (status == ProjectStatus::Active) {
         return "Active";
-
-    case ProjectStatus::Finished:
-        return "Finished";
-
-    default:
-        return "Unknown";
     }
+    else if (status == ProjectStatus::Finished) {
+        return "Finished";
+    }
+
+    throw std::invalid_argument("Invalid project status.");
 }
 
-Project::Project(const std::string& name,
-    const std::string& description)
-    : id(nextId++),
-    name(name),
-    description(description),
-    status(ProjectStatus::Active) {
+ProjectStatus stringToProjectStatus(const std::string& str) {
+    if (str == "Active") {
+        return ProjectStatus::Active;
+    }
+    else if (str == "Finished") {
+        return ProjectStatus::Finished;
+    }
+
+    throw std::invalid_argument("Invalid project status.");
 }
 
-Project::Project(unsigned int id,
-    const std::string& name,
-    const std::string& description,
-    ProjectStatus status)
-    : id(id),
-    name(name),
-    description(description),
-    status(status) {
+Project::Project(const std::string& name, const std::string& description)
+    : id(nextId++), name(name), description(description), status(ProjectStatus::Active) {
+}
 
+Project::Project(unsigned int id, const std::string& name, const std::string& description, ProjectStatus status, const std::vector<unsigned int>& memberIds, const std::vector<unsigned int>& taskIds, const std::vector<Stage>& stages)
+    : id(id), name(name), description(description), memberIds(memberIds), taskIds(taskIds), stages(stages), status(status) {
     if (id >= nextId) {
         nextId = id + 1;
     }
@@ -82,8 +77,7 @@ void Project::addMember(unsigned int userId) {
     }
 }
 
-void Project::removeMember(
-    unsigned int userId) {
+void Project::removeMember(unsigned int userId) {
 
     memberIds.erase(
         std::remove(memberIds.begin(),
@@ -92,8 +86,7 @@ void Project::removeMember(
         memberIds.end());
 }
 
-bool Project::containsMember(
-    unsigned int userId) const {
+bool Project::containsMember(unsigned int userId) const {
 
     return std::find(memberIds.begin(),
         memberIds.end(),
@@ -108,8 +101,7 @@ void Project::addTask(unsigned int taskId) {
     }
 }
 
-bool Project::containsTask(
-    unsigned int taskId) const {
+bool Project::containsTask(unsigned int taskId) const {
 
     return std::find(taskIds.begin(),
         taskIds.end(),
@@ -117,16 +109,14 @@ bool Project::containsTask(
         != taskIds.end();
 }
 
-void Project::addStage(
-    const Stage& stage) {
+void Project::addStage(const Stage& stage) {
 
     if (!containsStage(stage.getName())) {
         stages.push_back(stage);
     }
 }
 
-Stage* Project::getStageByName(
-    const std::string& stageName) {
+Stage* Project::getStageByName(const std::string& stageName) {
 
     for (Stage& stage : stages) {
 
@@ -138,8 +128,7 @@ Stage* Project::getStageByName(
     return nullptr;
 }
 
-const Stage* Project::getStageByName(
-    const std::string& stageName) const {
+const Stage* Project::getStageByName(const std::string& stageName) const {
 
     for (const Stage& stage : stages) {
 
@@ -151,8 +140,7 @@ const Stage* Project::getStageByName(
     return nullptr;
 }
 
-bool Project::containsStage(
-    const std::string& stageName) const {
+bool Project::containsStage(const std::string& stageName) const {
 
     return getStageByName(stageName)
         != nullptr;
@@ -162,76 +150,88 @@ void Project::finalize() {
     status = ProjectStatus::Finished;
 }
 
-void Project::serialize(
-    std::ostream& os) const {
+void Project::serialize(std::ostream& os) const {
+    os << id << '\n';
+    os << name << '\n';
+    os << description << '\n';
+    os << projectStatusToString(status) << '\n';
 
-    os << id << '\n'
-        << name << '\n'
-        << description << '\n'
-        << static_cast<int>(status)
-        << '\n';
-
-    os << memberIds.size()
-        << '\n';
-
-    for (unsigned int id : memberIds) {
-        os << id << ' ';
+    os << memberIds.size() << '\n';
+    for (unsigned int memberId : memberIds) {
+        os << memberId << '\n';
     }
 
-    os << '\n';
-
-    os << taskIds.size()
-        << '\n';
-
-    for (unsigned int id : taskIds) {
-        os << id << ' ';
+    os << taskIds.size() << '\n';
+    for (unsigned int taskId : taskIds) {
+        os << taskId << '\n';
     }
 
-    os << '\n';
-
-    os << stages.size()
-        << '\n';
-
+    os << stages.size() << '\n';
     for (const Stage& stage : stages) {
         stage.serialize(os);
     }
 }
 
-void Project::print(
-    std::ostream& os) const {
+Project Project::deserialize(std::istream& is) {
+    unsigned int id;
+    std::string name;
+    std::string description;
+    std::string statusStr;
 
-    os << "Project ID: "
-        << id
-        << '\n';
+    is >> id;
+    is.ignore();
 
-    os << "Name: "
-        << name
-        << '\n';
+    std::getline(is, name);
+    std::getline(is, description);
+    std::getline(is, statusStr);
 
-    os << "Description: "
-        << description
-        << '\n';
+    size_t memberCount;
+    is >> memberCount;
+    is.ignore();
 
-    os << "Status: "
-        << projectStatusToString(status)
-        << '\n';
+    std::vector<unsigned int> memberIds;
+    for (size_t i = 0; i < memberCount; i++) {
+        unsigned int memberId;
+        is >> memberId;
+        is.ignore();
+        memberIds.push_back(memberId);
+    }
 
-    os << "Members count: "
-        << memberIds.size()
-        << '\n';
+    size_t taskCount;
+    is >> taskCount;
+    is.ignore();
 
-    os << "Tasks count: "
-        << taskIds.size()
-        << '\n';
+    std::vector<unsigned int> taskIds;
+    for (size_t i = 0; i < taskCount; i++) {
+        unsigned int taskId;
+        is >> taskId;
+        is.ignore();
+        taskIds.push_back(taskId);
+    }
 
-    os << "Stages count: "
-        << stages.size()
-        << '\n';
+    size_t stageCount;
+    is >> stageCount;
+    is.ignore();
+
+    std::vector<Stage> stages;
+    for (size_t i = 0; i < stageCount; i++) {
+        stages.push_back(Stage::deserialize(is));
+    }
+
+    return Project(id, name, description, stringToProjectStatus(statusStr), memberIds, taskIds, stages);
 }
 
-std::ostream& operator<<(
-    std::ostream& os,
-    const Project& project) {
+void Project::print(std::ostream& os) const {
+    os << "Project ID: " << id << '\n';
+    os << "Name: " << name << '\n';
+    os << "Description: " << description << '\n';
+    os << "Status: " << projectStatusToString(status) << '\n';
+    os << "Members count: " << memberIds.size() << '\n';
+    os << "Tasks count: " << taskIds.size() << '\n';
+    os << "Stages count: " << stages.size() << '\n';
+}
+
+std::ostream& operator<<(std::ostream& os, const Project& project) {
 
     project.print(os);
 

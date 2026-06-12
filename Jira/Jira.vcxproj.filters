@@ -129,6 +129,18 @@
     <ClCompile Include="sources\commands\GradeTaskCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\services\DataService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\SaveCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\LoadCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\users\User.h">
@@ -249,6 +261,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\commands\GradeTaskCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\services\DataService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\SaveCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\LoadCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

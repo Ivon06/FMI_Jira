@@ -14,6 +14,8 @@
 #include "../../headers/commands/ChangeTaskPriorityCommand.h"
 #include "../../headers/commands/GradeTaskCommand.h"
 #include "../../headers/commands/AddCommentCommand.h"
+#include "../../headers/commands/SaveCommand.h"
+#include "../../headers/commands/LoadCommand.h"
 
 
 class CommandFactory {

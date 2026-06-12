@@ -11,6 +11,9 @@
 
 void TaskService::createTask(Context& context, const std::string& projectName, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, std::time_t deadline, int points)
 {
+	requireStudent(context);
+
+
 	User* user = UserService::getCurrentUser(context);
 
 	Project* project = ProjectService::findProjectByName(context, projectName);
@@ -84,6 +87,10 @@ void TaskService::assignTask(Context& context, unsigned int taskId) {
 		throw std::runtime_error("Task is already assigned.");
 	}
 
+	if (task->getStatus() != TaskStatus::ToDo) {
+		throw std::runtime_error("Only ToDo tasks can be assigned.");
+	}
+
 	task->assignTo(currentUser->getId());
 
 	context.markChanged();
@@ -104,8 +111,16 @@ void TaskService::changeStatus(Context& context, unsigned int taskId, TaskStatus
 		throw std::runtime_error("You can change status only of tasks assigned to you.");
 	}
 
+	if (task->getStatus() == newStatus) {
+		throw std::runtime_error("Task already has this status.");
+	}
+
 	if (task->getStatus() == TaskStatus::Done) {
 		throw std::runtime_error("Cannot change status of completed task.");
+	}
+
+	if (!isValidStatusTransition(task->getStatus(), newStatus)) {
+		throw std::runtime_error("Invalid task status transition.");
 	}
 
 	task->changeStatus(newStatus);
@@ -123,8 +138,22 @@ void TaskService::changePriority(Context& context, unsigned int taskId, TaskPrio
 		throw std::invalid_argument("Task does not exist.");
 	}
 
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to any project.");
+	}
+
+	if (project->getStatus() == ProjectStatus::Finished) {
+		throw std::runtime_error("Cannot change priority of task in finished project.");
+	}
+
 	if (task->getStatus() == TaskStatus::Done) {
 		throw std::runtime_error("Cannot change priority of completed task.");
+	}
+
+	if (task->getPriority() == newPriority) {
+		throw std::runtime_error("Task already has this priority.");
 	}
 
 	task->changePriority(newPriority);
@@ -220,4 +249,22 @@ void TaskService::requireLecturer(Context& context)
 	{
 		throw std::runtime_error("Only lecturer can perform this action.");
 	}
+}
+
+Project* TaskService::getProjectForTask(Context& context, unsigned int taskId) {
+	return ProjectService::findProjectByTaskId(context, taskId);
+}
+
+bool TaskService::isValidStatusTransition(TaskStatus currentStatus, TaskStatus newStatus) {
+	if (currentStatus == TaskStatus::ToDo && newStatus == TaskStatus::InProgress) {
+		return true;
+	}
+	else if (currentStatus == TaskStatus::InProgress && newStatus == TaskStatus::InReview) {
+		return true;
+	}
+	else if (currentStatus == TaskStatus::InReview && newStatus == TaskStatus::Done) {
+		return true;
+	}
+
+	return false;
 }

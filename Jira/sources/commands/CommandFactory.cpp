@@ -99,6 +99,12 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "add-comment") {
 		return new AddCommentCommand(tokens);
 	}
+	else if (commandName == "save") {
+		return new SaveCommand(tokens);
+	}
+	else if (commandName == "load") {
+		return new LoadCommand(tokens);
+	}
 
 
 	return nullptr;

@@ -14,23 +14,26 @@ std::string stageStatusToString(StageStatus status) {
     }
 }
 
-Stage::Stage(const std::string& name,
-    std::time_t startDate,
-    std::time_t endDate)
-    : name(name),
-    startDate(startDate),
-    endDate(endDate),
-    status(StageStatus::Planned) {
+StageStatus stringToStageStatus(const std::string& str) {
+    if (str == "Planned") {
+        return StageStatus::Planned;
+    }
+    else if (str == "Active") {
+        return StageStatus::Active;
+    }
+    else if (str == "Finished") {
+        return StageStatus::Finished;
+    }
+
+    throw std::invalid_argument("Invalid stage status.");
 }
 
-Stage::Stage(const std::string& name,
-    std::time_t startDate,
-    std::time_t endDate,
-    StageStatus status)
-    : name(name),
-    startDate(startDate),
-    endDate(endDate),
-    status(status) {
+Stage::Stage(const std::string& name, std::time_t startDate, std::time_t endDate)
+    : name(name), startDate(startDate), endDate(endDate), status(StageStatus::Planned) {
+}
+
+Stage::Stage(const std::string& name, std::time_t startDate, std::time_t endDate, StageStatus status, const std::vector<unsigned int>& taskIds)
+    : name(name), startDate(startDate), endDate(endDate), taskIds(taskIds), status(status) {
 }
 
 const std::string& Stage::getName() const {
@@ -68,31 +71,57 @@ void Stage::addTask(unsigned int taskId) {
 }
 
 void Stage::removeTask(unsigned int taskId) {
-    taskIds.erase(
-        std::remove(taskIds.begin(), taskIds.end(), taskId),
-        taskIds.end()
-    );
+    taskIds.erase(std::remove(taskIds.begin(), taskIds.end(), taskId), taskIds.end());
 }
 
 bool Stage::containsTask(unsigned int taskId) const {
-    return std::find(taskIds.begin(),
-        taskIds.end(),
-        taskId) != taskIds.end();
+    return std::find(taskIds.begin(), taskIds.end(), taskId) != taskIds.end();
 }
 
 void Stage::serialize(std::ostream& os) const {
     os << name << '\n'
         << startDate << '\n'
         << endDate << '\n'
-        << static_cast<int>(status) << '\n';
+        << stageStatusToString(status) << '\n';
 
     os << taskIds.size() << '\n';
 
     for (unsigned int taskId : taskIds) {
-        os << taskId << ' ';
+        os << taskId << '\n';
+    }
+}
+
+Stage Stage::deserialize(std::istream& is) {
+    std::string name;
+    std::time_t startDate;
+    std::time_t endDate;
+    std::string statusStr;
+    size_t taskCount;
+
+    std::getline(is, name);
+
+    is >> startDate;
+    is.ignore();
+
+    is >> endDate;
+    is.ignore();
+
+    std::getline(is, statusStr);
+
+    is >> taskCount;
+    is.ignore();
+
+    std::vector<unsigned int> taskIds;
+
+    for (size_t i = 0; i < taskCount; i++) {
+        unsigned int taskId;
+        is >> taskId;
+        is.ignore();
+
+        taskIds.push_back(taskId);
     }
 
-    os << '\n';
+    return Stage(name, startDate, endDate, stringToStageStatus(statusStr), taskIds);
 }
 
 void Stage::print(std::ostream& os) const {
@@ -103,8 +132,7 @@ void Stage::print(std::ostream& os) const {
         << "Tasks count: " << taskIds.size() << '\n';
 }
 
-std::ostream& operator<<(std::ostream& os,
-    const Stage& stage) {
+std::ostream& operator<<(std::ostream& os, const Stage& stage) {
     stage.print(os);
     return os;
 }
