@@ -7,14 +7,26 @@
 #include <exception>
 #include "headers/commands/Command.h"
 #include "headers/commands/CommandFactory.h"
+#include "headers/services/DataService.h"
 
 int main()
 {
+
     std::cout
         << "Welcome to FMI_Jira App."
         << std::endl;
 
     Context context;
+
+    try {
+        DataService::load(context);
+        std::cout << "[System] Last state loaded successfully." << std::endl;
+    }
+    catch (const std::exception& ex) {
+        std::cout << "[Error] Could not load data: " << ex.what() << std::endl;
+        return 1;
+    }
+    
 
     std::string commandLine;
 

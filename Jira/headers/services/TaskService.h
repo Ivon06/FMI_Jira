@@ -5,7 +5,7 @@
 
 class TaskService {
 public:
-    static void createTask(Context& context, const std::string& projectName, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, std::time_t deadline, int points);
+    static void createTask(Context& context, const std::string& projectName, const std::string& title, const std::string& description, TaskType type, TaskPriority priority);
 
     static Task* findTaskById(Context& context, unsigned int taskId);
 
@@ -15,7 +15,7 @@ public:
 
     static void changePriority(Context& context, unsigned int taskId, TaskPriority newPriority);
 
-    static void gradeTask(Context& context, unsigned int taskId, double grade);
+    static void gradeTask(Context& context, unsigned int taskId, int points, double grade);
 
     static void addComment(Context& context, unsigned int taskId, const std::string& content);
 

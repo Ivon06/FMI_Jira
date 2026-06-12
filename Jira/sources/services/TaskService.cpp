@@ -9,7 +9,7 @@
 
 #include <stdexcept>
 
-void TaskService::createTask(Context& context, const std::string& projectName, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, std::time_t deadline, int points)
+void TaskService::createTask(Context& context, const std::string& projectName, const std::string& title, const std::string& description, TaskType type, TaskPriority priority)
 {
 	requireStudent(context);
 
@@ -33,7 +33,7 @@ void TaskService::createTask(Context& context, const std::string& projectName, c
 		throw std::invalid_argument("You are not part of this project.");
 	}
 
-	Task task = TaskFactory::createTask(title, description, type, priority, user->getId(), deadline, points);
+	Task task = TaskFactory::createTask(title, description, type, priority, user->getId());
 
 	unsigned int taskId = task.getId();
 
@@ -161,20 +161,29 @@ void TaskService::changePriority(Context& context, unsigned int taskId, TaskPrio
 	context.markChanged();
 }
 
-void TaskService::gradeTask(Context& context, unsigned int taskId, double grade)
-{
+void TaskService::gradeTask(Context& context, unsigned int taskId, int points, double grade) {
+	requireLecturer(context);
+
 	Task* task = findTaskById(context, taskId);
 
 	if (task == nullptr) {
 		throw std::invalid_argument("Task does not exist.");
 	}
 
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to any project.");
+	}
+
 	if (task->getStatus() != TaskStatus::Done) {
 		throw std::runtime_error("Only completed tasks can be graded.");
 	}
 
+	TaskValidator::validatePoints(points);
 	TaskValidator::validateGrade(grade);
 
+	task->setPoints(points);
 	task->setGrade(grade);
 
 	context.markChanged();

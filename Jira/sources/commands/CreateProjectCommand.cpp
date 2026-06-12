@@ -10,24 +10,21 @@ CreateProjectCommand::CreateProjectCommand(
 }
 
 void CreateProjectCommand::execute(Context& context) {
-    if (args.size() != 2) {
+    if (args.size() != 1) {
         throw std::invalid_argument(
-            "Usage: create-project <name> <description>");
+            "Usage: create-project <name>");
     }
 
     std::string description;
 
-    for (size_t i = 1; i < args.size(); i++) {
-        if (i > 1) {
-            description += " ";
-        }
+    std::cout << "Description: ";
+    std::getline(std::cin, description);
 
-        description += args[i];
-    }
+    ProjectService::createProject(
+        context,
+        args[0],
+        description);
 
-    ProjectService::createProject(context, args[0], description);
-
-    std::cout << "[System] Project '"
-        << args[0]
-        << "' created successfully.\n";
+    std::cout << "[System] Project created successfully."
+        << std::endl;
 }

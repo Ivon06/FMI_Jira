@@ -60,6 +60,8 @@ void DataService::saveUsers(Context& context, const std::string& filename) {
     for (const auto& user : context.getUsers()) {
         user->serialize(ofs);
     }
+
+    ofs.close();
 }
 
 void DataService::loadUsers(Context& context, const std::string& filename) {
@@ -109,6 +111,8 @@ void DataService::loadUsers(Context& context, const std::string& filename) {
     if (!hasAdmin) {
         seedAdmin(context);
     }
+
+    ifs.close();
 }
 
 void DataService::saveProjects(Context& context, const std::string& filename) {
@@ -123,6 +127,8 @@ void DataService::saveProjects(Context& context, const std::string& filename) {
     for (const Project& project : context.getProjects()) {
         project.serialize(ofs);
     }
+
+    ofs.close();
 }
 
 void DataService::loadProjects(Context& context, const std::string& filename) {
@@ -139,6 +145,8 @@ void DataService::loadProjects(Context& context, const std::string& filename) {
     for (size_t i = 0; i < count; i++) {
         context.getProjects().push_back(Project::deserialize(ifs));
     }
+
+    ifs.close();
 }
 
 void DataService::saveTasks(Context& context, const std::string& filename) {
@@ -153,6 +161,8 @@ void DataService::saveTasks(Context& context, const std::string& filename) {
     for (const Task& task : context.getTasks()) {
         task.serialize(ofs);
     }
+
+    ofs.close();
 }
 
 void DataService::loadTasks(Context& context, const std::string& filename) {
@@ -169,4 +179,6 @@ void DataService::loadTasks(Context& context, const std::string& filename) {
     for (size_t i = 0; i < count; i++) {
         context.getTasks().push_back(Task::deserialize(ifs));
     }
+
+    ifs.close();
 }

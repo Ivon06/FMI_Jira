@@ -2,6 +2,7 @@
 #include "../../headers/services/TaskService.h"
 #include "../../headers/tasks/Task.h"
 
+#include <iostream>
 #include <stdexcept>
 
 CreateTaskCommand::CreateTaskCommand(const std::vector<std::string>& args)
@@ -9,19 +10,20 @@ CreateTaskCommand::CreateTaskCommand(const std::vector<std::string>& args)
 }
 
 void CreateTaskCommand::execute(Context& context) {
-
-    if (args.size() != 7) {
-        throw std::invalid_argument(
-            "Usage: create-task <project> <title> <description> <type> <priority> <deadline> <points>");
+    if (args.size() != 3) {
+        throw std::invalid_argument("Usage: create-task <project> <type> <priority>");
     }
 
-    TaskService::createTask(
-        context,
-        args[0],
-        args[1],
-        args[2],
-        stringToTaskType(args[3]),
-        stringToTaskPriority(args[4]),
-        std::stoll(args[5]),
-        std::stoi(args[6]));
+    std::string title;
+    std::string description;
+
+    std::cout << "Title: ";
+    std::getline(std::cin, title);
+
+    std::cout << "Description: ";
+    std::getline(std::cin, description);
+
+    TaskService::createTask(context, args[0], title, description, stringToTaskType(args[1]), stringToTaskPriority(args[2]));
+
+    std::cout << "[System] Task created successfully." << std::endl;
 }

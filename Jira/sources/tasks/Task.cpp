@@ -66,8 +66,8 @@ std::string taskStatusToString(TaskStatus status) {
     }
 }
 
-Task::Task(const std::string& title, const std::string& description, TaskType type, TaskPriority priority, unsigned int creatorId, std::time_t deadline, int points)
-    : id(nextId++), title(title), description(description), type(type), priority(priority), status(TaskStatus::ToDo), creatorId(creatorId), assigneeId(0), deadline(deadline), points(points), grade(0.0) {
+Task::Task(const std::string& title, const std::string& description, TaskType type, TaskPriority priority, unsigned int creatorId)
+    : id(nextId++), title(title), description(description), type(type), priority(priority), status(TaskStatus::ToDo), creatorId(creatorId), assigneeId(0), points(0), grade(0.0) {
 }
 
 Task::Task(unsigned int id, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, TaskStatus status, unsigned int creatorId, unsigned int assigneeId, std::time_t deadline, int points, double grade, const std::vector<Comment>& comments, const std::vector<std::string>& tags, const std::vector<std::string>& history)
@@ -164,6 +164,12 @@ void Task::setGrade(double grade) {
     this->grade = grade;
 
     addHistoryEntry("Task graded.");
+}
+
+void Task::setPoints(int points)
+{
+
+    this->grade = grade;
 }
 
 void Task::addComment(const Comment& comment) {
