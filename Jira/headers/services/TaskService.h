@@ -15,10 +15,17 @@ public:
 
     static void changePriority(Context& context, unsigned int taskId, TaskPriority newPriority);
 
-    static void gradeTask(Context& context, unsigned int taskId, int points, double grade);
+    static void gradeTask(Context& context, unsigned int taskId, double grade);
 
     static void addComment(Context& context, unsigned int taskId, const std::string& content);
+    
+    static void addTag(Context& context, unsigned int taskId, const std::string& tag);
 
+    static const std::vector<std::string>& getHistory(Context& context, unsigned int taskId);
+
+    static std::vector<Task*> searchTasks(Context& context, const std::string& keyword);
+
+    static std::vector<Task*> filterByStatus(Context& context, TaskStatus status);
 private:
     static void requireStudent(Context& context);
     static void requireTeachingAssistantOrLecturer(Context& context);

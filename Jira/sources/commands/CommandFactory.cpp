@@ -108,6 +108,21 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "move-task-to-stage") {
 		return new MoveTaskToStageCommand(tokens);
 	}
+	else if (commandName == "view-profile") {
+		return new ViewProfileCommand(tokens);
+	}
+	else if (commandName == "list-projects") {
+		return new ListProjectsCommand(tokens);
+	}
+	else if (commandName == "view-project") {
+		return new ViewProjectCommand(tokens);
+	}
+	else if (commandName == "view-task") {
+		return new ViewTaskCommand(tokens);
+	}
+	else if (commandName == "my-tasks") {
+		return new MyTasksCommand(tokens);
+	}
 
 
 	return nullptr;

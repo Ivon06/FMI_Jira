@@ -9,10 +9,10 @@ GradeTaskCommand::GradeTaskCommand(const std::vector<std::string>& args)
 
 void GradeTaskCommand::execute(Context& context) {
 
-    if (args.size() != 3) {
+    if (args.size() != 2) {
         throw std::invalid_argument(
-            "Usage: grade-task <task_id> <points> <grade>");
+            "Usage: grade-task <task_id> <grade>");
     }
 
-    TaskService::gradeTask(context,  std::stoul(args[0]),  std::stoi(args[1]),  std::stod(args[2]));
+    TaskService::gradeTask(context,  std::stoul(args[0]),  std::stoi(args[1]));
 }

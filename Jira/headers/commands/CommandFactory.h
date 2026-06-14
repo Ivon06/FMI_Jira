@@ -17,6 +17,11 @@
 #include "../../headers/commands/SaveCommand.h"
 #include "../../headers/commands/LoadCommand.h"
 #include "../../headers/commands/MoveTaskToStageCommand.h"
+#include "../../headers/commands/ViewProfileCommand.h"
+#include "../../headers/commands/ListProjectsCommand.h"
+#include "../../headers/commands/ViewProjectCommand.h"
+#include "../../headers/commands/ViewTaskCommand.h"
+#include "../../headers/commands/MyTasksCommand.h"
 
 
 class CommandFactory {

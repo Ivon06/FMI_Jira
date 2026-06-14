@@ -142,6 +142,7 @@
     <ClCompile Include="headers\commands\AddCommentCommand.cpp" />
     <ClCompile Include="Jira.cpp" />
     <ClCompile Include="sources\commands\AddStageCommand.cpp" />
+    <ClCompile Include="sources\commands\AddTagCommand.cpp" />
     <ClCompile Include="sources\commands\AddUserToProjectCommand.cpp" />
     <ClCompile Include="sources\commands\AssignTaskCommand.cpp" />
     <ClCompile Include="sources\commands\ChangeTaskPriorityCommand.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="sources\commands\CommandFactory.cpp" />
     <ClCompile Include="sources\commands\CreateProjectCommand.cpp" />
     <ClCompile Include="sources\commands\CreateTaskCommand.cpp" />
+    <ClCompile Include="sources\commands\FilterTasksCommand.cpp" />
     <ClCompile Include="sources\commands\FinalizeProjectCommand.cpp" />
     <ClCompile Include="sources\commands\FinishStageCommand.cpp" />
     <ClCompile Include="sources\commands\GradeTaskCommand.cpp" />
@@ -157,9 +159,12 @@
     <ClCompile Include="sources\commands\LoginCommand.cpp" />
     <ClCompile Include="sources\commands\LogoutCommand.cpp" />
     <ClCompile Include="sources\commands\MoveTaskToStageCommand.cpp" />
+    <ClCompile Include="sources\commands\MyTasksCommand.cpp" />
     <ClCompile Include="sources\commands\RegisterCommand.cpp" />
     <ClCompile Include="sources\commands\SaveCommand.cpp" />
+    <ClCompile Include="sources\commands\SearchTasksCommand.cpp" />
     <ClCompile Include="sources\commands\StartStageCommand.cpp" />
+    <ClCompile Include="sources\commands\ViewHistoryCommand.cpp" />
     <ClCompile Include="sources\commands\ViewProfileCommand.cpp" />
     <ClCompile Include="sources\commands\ViewProjectCommand.cpp" />
     <ClCompile Include="sources\commands\ViewTaskCommand.cpp" />
@@ -188,6 +193,7 @@
   <ItemGroup>
     <ClInclude Include="headers\commands\AddCommentCommand.h" />
     <ClInclude Include="headers\commands\AddStageCommand.h" />
+    <ClInclude Include="headers\commands\AddTagCommand.h" />
     <ClInclude Include="headers\commands\AddUserToProjectCommand.h" />
     <ClInclude Include="headers\commands\AssignTaskCommand.h" />
     <ClInclude Include="headers\commands\ChangeTaskPriorityCommand.h" />
@@ -196,6 +202,7 @@
     <ClInclude Include="headers\commands\CommandFactory.h" />
     <ClInclude Include="headers\commands\CreateProjectCommand.h" />
     <ClInclude Include="headers\commands\CreateTaskCommand.h" />
+    <ClInclude Include="headers\commands\FilterTasksCommand.h" />
     <ClInclude Include="headers\commands\FinalizeProjectCommand.h" />
     <ClInclude Include="headers\commands\FinishStageCommand.h" />
     <ClInclude Include="headers\commands\GradeTaskCommand.h" />
@@ -204,9 +211,12 @@
     <ClInclude Include="headers\commands\LoginCommand.h" />
     <ClInclude Include="headers\commands\LogoutCommand.h" />
     <ClInclude Include="headers\commands\MoveTaskToStageCommand.h" />
+    <ClInclude Include="headers\commands\MyTasksCommand.h" />
     <ClInclude Include="headers\commands\RegisterCommand.h" />
     <ClInclude Include="headers\commands\SaveCommand.h" />
+    <ClInclude Include="headers\commands\SearchTasksCommand.h" />
     <ClInclude Include="headers\commands\StartStageCommand.h" />
+    <ClInclude Include="headers\commands\ViewHistoryCommand.h" />
     <ClInclude Include="headers\commands\ViewProfileCommand.h" />
     <ClInclude Include="headers\commands\ViewProjectCommand.h" />
     <ClInclude Include="headers\commands\ViewTaskCommand.h" />

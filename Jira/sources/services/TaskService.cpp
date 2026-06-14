@@ -161,7 +161,7 @@ void TaskService::changePriority(Context& context, unsigned int taskId, TaskPrio
 	context.markChanged();
 }
 
-void TaskService::gradeTask(Context& context, unsigned int taskId, int points, double grade) {
+void TaskService::gradeTask(Context& context, unsigned int taskId, double grade) {
 	requireLecturer(context);
 
 	Task* task = findTaskById(context, taskId);
@@ -180,10 +180,10 @@ void TaskService::gradeTask(Context& context, unsigned int taskId, int points, d
 		throw std::runtime_error("Only completed tasks can be graded.");
 	}
 
-	TaskValidator::validatePoints(points);
+	
 	TaskValidator::validateGrade(grade);
 
-	task->setPoints(points);
+	task->setPoints(10 - (6-grade)*2);
 	task->setGrade(grade);
 
 	context.markChanged();
@@ -276,4 +276,58 @@ bool TaskService::isValidStatusTransition(TaskStatus currentStatus, TaskStatus n
 	}
 
 	return false;
+}
+
+void TaskService::addTag(Context& context, unsigned int taskId, const std::string& tag) {
+	requireTeachingAssistantOrLecturer(context);
+
+	Task* task = findTaskById(context, taskId);
+
+	if (task == nullptr) {
+		throw std::invalid_argument("Task does not exist.");
+	}
+
+	if (tag.empty()) {
+		throw std::invalid_argument("Tag cannot be empty.");
+	}
+
+	task->addTag(tag);
+
+	context.markChanged();
+}
+
+const std::vector<std::string>& TaskService::getHistory(Context& context, unsigned int taskId) {
+	Task* task = findTaskById(context, taskId);
+
+	if (task == nullptr) {
+		throw std::invalid_argument("Task does not exist.");
+	}
+
+	return task->getHistory();
+}
+
+std::vector<Task*> TaskService::searchTasks(Context& context, const std::string& keyword) {
+	std::vector<Task*> result;
+
+	for (Task& task : context.getTasks()) {
+		if (task.getTitle().find(keyword) != std::string::npos ||
+			task.getDescription().find(keyword) != std::string::npos) {
+
+			result.push_back(&task);
+		}
+	}
+
+	return result;
+}
+
+std::vector<Task*> TaskService::filterByStatus(Context& context, TaskStatus status) {
+	std::vector<Task*> result;
+
+	for (Task& task : context.getTasks()) {
+		if (task.getStatus() == status) {
+			result.push_back(&task);
+		}
+	}
+
+	return result;
 }
