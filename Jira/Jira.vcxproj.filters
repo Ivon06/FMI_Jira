@@ -135,10 +135,19 @@
     <ClCompile Include="sources\commands\SaveCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sources\commands\Source.cpp">
+    <ClCompile Include="sources\commands\LoadCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sources\commands\LoadCommand.cpp">
+    <ClCompile Include="sources\commands\MoveTaskToStageCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\ViewProfileCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\ViewProjectCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\commands\ViewTaskCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -270,6 +279,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\commands\LoadCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\MoveTaskToStageCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\ViewProfileCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\ListProjectsCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\commands\ListProjectsCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\ViewProjectCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\commands\ViewTaskCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

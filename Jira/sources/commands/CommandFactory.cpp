@@ -105,6 +105,9 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "load") {
 		return new LoadCommand(tokens);
 	}
+	else if (commandName == "move-task-to-stage") {
+		return new MoveTaskToStageCommand(tokens);
+	}
 
 
 	return nullptr;

@@ -11,6 +11,8 @@ public:
 
     static void finishStage(Context& context, const std::string& projectName, const std::string& stageName);
 
+    static void moveTaskToStage(Context& context, unsigned int taskId, const std::string& stageName);
+
 private:
     static void requireTeachingAssistantOrLecturer(Context& context);
 };

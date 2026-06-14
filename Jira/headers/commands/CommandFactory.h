@@ -16,6 +16,7 @@
 #include "../../headers/commands/AddCommentCommand.h"
 #include "../../headers/commands/SaveCommand.h"
 #include "../../headers/commands/LoadCommand.h"
+#include "../../headers/commands/MoveTaskToStageCommand.h"
 
 
 class CommandFactory {

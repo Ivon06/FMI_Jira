@@ -5,6 +5,7 @@
 #include "../../headers/stages/StageValidator.h"
 #include "../../headers/stages/Stage.h"
 #include "../../headers/users/UserRole.hpp"
+#include "../../headers/services/TaskService.h"
 
 #include <stdexcept>
 
@@ -107,4 +108,46 @@ void StageService::requireTeachingAssistantOrLecturer(Context& context) {
     if (role != UserRole::TeachingAssistant && role != UserRole::Lecturer) {
         throw std::runtime_error("Only teaching assistant or lecturer can manage stages.");
     }
+}
+
+void StageService::moveTaskToStage(Context& context, unsigned int taskId, const std::string& stageName) {
+    requireTeachingAssistantOrLecturer(context);
+
+    Task* task = TaskService::findTaskById(context, taskId);
+
+    if (task == nullptr) {
+        throw std::invalid_argument("Task does not exist.");
+    }
+
+    Project* project = ProjectService::findProjectByTaskId(context, taskId);
+
+    if (project == nullptr) {
+        throw std::runtime_error("Task is not connected to any project.");
+    }
+
+    if (project->getStatus() == ProjectStatus::Finished) {
+        throw std::runtime_error("Cannot move task in finished project.");
+    }
+
+    Stage* targetStage = project->getStageByName(stageName);
+
+    if (targetStage == nullptr) {
+        throw std::invalid_argument("Stage does not exist.");
+    }
+
+    if (targetStage->getStatus() == StageStatus::Finished) {
+        throw std::runtime_error("Cannot move task to finished stage.");
+    }
+
+    if (targetStage->containsTask(taskId)) {
+        throw std::runtime_error("Task is already in this stage.");
+    }
+
+    for (Stage& stage : const_cast<std::vector<Stage>&>(project->getStages())) {
+        stage.removeTask(taskId);
+    }
+
+    targetStage->addTask(taskId);
+
+    context.markChanged();
 }
