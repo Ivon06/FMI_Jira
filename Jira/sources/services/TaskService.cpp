@@ -103,6 +103,20 @@ void TaskService::changeStatus(Context& context, unsigned int taskId, TaskStatus
 
 	Task* task = findTaskById(context, taskId);
 
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to project.");
+	}
+
+	if (project->getStatus() == ProjectStatus::Finished) {
+		throw std::runtime_error("Cannot change task status in finished project.");
+	}
+
+	if (!project->containsMember(currentUser->getId())) {
+		throw std::runtime_error("You are not a member of this project.");
+	}
+
 	if (task == nullptr) {
 		throw std::invalid_argument("Task does not exist.");
 	}
@@ -207,6 +221,20 @@ void TaskService::addComment(Context& context, unsigned int taskId, const std::s
 		throw std::invalid_argument("Comment cannot be empty.");
 	}
 
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to project.");
+	}
+
+	bool isMember = project->containsMember(currentUser->getId());
+	bool isAcademic = currentUser->getRole() == UserRole::TeachingAssistant ||
+		currentUser->getRole() == UserRole::Lecturer;
+
+	if (!isMember && !isAcademic) {
+		throw std::runtime_error("You cannot comment this task.");
+	}
+
 	task->addComment(Comment(currentUser->getId(), content));
 
 	context.markChanged();
@@ -283,6 +311,16 @@ void TaskService::addTag(Context& context, unsigned int taskId, const std::strin
 
 	Task* task = findTaskById(context, taskId);
 
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to project.");
+	}
+
+	if (project->getStatus() == ProjectStatus::Finished) {
+		throw std::runtime_error("Cannot add tag to task in finished project.");
+	}
+
 	if (task == nullptr) {
 		throw std::invalid_argument("Task does not exist.");
 	}
@@ -330,4 +368,58 @@ std::vector<Task*> TaskService::filterByStatus(Context& context, TaskStatus stat
 	}
 
 	return result;
+}
+
+void TaskService::reviewTask(Context& context, unsigned int taskId) {
+	requireTeachingAssistantOrLecturer(context);
+
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to project.");
+	}
+
+	if (project->getStatus() == ProjectStatus::Finished) {
+		throw std::runtime_error("Cannot review task in finished project.");
+	}
+
+	Task* task = findTaskById(context, taskId);
+
+	if (task == nullptr) {
+		throw std::invalid_argument("Task does not exist.");
+	}
+
+	if (task->getStatus() != TaskStatus::InReview) {
+		throw std::runtime_error("Only tasks in review can be reviewed.");
+	}
+
+	task->addHistoryEntry("Task reviewed.");
+	context.markChanged();
+}
+
+void TaskService::approveTask(Context& context, unsigned int taskId) {
+	requireTeachingAssistantOrLecturer(context);
+
+	Task* task = findTaskById(context, taskId);
+
+	if (task == nullptr) {
+		throw std::invalid_argument("Task does not exist.");
+	}
+
+	Project* project = getProjectForTask(context, taskId);
+
+	if (project == nullptr) {
+		throw std::runtime_error("Task is not connected to any project.");
+	}
+
+	if (project->getStatus() == ProjectStatus::Finished) {
+		throw std::runtime_error("Cannot approve task in finished project.");
+	}
+
+	if (task->getStatus() != TaskStatus::InReview) {
+		throw std::runtime_error("Only tasks in review can be approved.");
+	}
+
+	task->changeStatus(TaskStatus::Done);
+	context.markChanged();
 }

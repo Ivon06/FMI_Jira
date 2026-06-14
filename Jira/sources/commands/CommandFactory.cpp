@@ -123,6 +123,48 @@ Command* CommandFactory::generateCommand(std::string& cmdLine, std::vector<std::
 	else if (commandName == "my-tasks") {
 		return new MyTasksCommand(tokens);
 	}
+	else if (commandName == "upcoming-tasks") {
+		return new UpcomingTasksCommand(tokens);
+	}
+	else if (commandName == "list-all-projects") {
+		return new ListAllProjectsCommand(tokens);
+	}
+	else if (commandName == "list-all-tasks") {
+		return new ListAllTasksCommand(tokens);
+	}
+	else if (commandName == "student-report") {
+		return new StudentReportCommand(tokens);
+	}
+	else if (commandName == "stage-report") {
+		return new StageReportCommand(tokens);
+	}
+	else if (commandName == "remove-user") {
+		return new RemoveUserCommand(tokens);
+	}
+	else if (commandName == "list-tasks") {
+		return new ListTasksCommand(tokens);
+	}
+	else if (commandName == "review-task") {
+		return new ReviewTaskCommand(tokens);
+	}
+	else if (commandName == "approve-task") {
+		return new ApproveTaskCommand(tokens);
+	}
+	else if (commandName == "help") {
+		return new HelpCommand(tokens);
+	}
+	else if (commandName == "search-tasks") {
+		return new SearchTasksCommand(tokens);
+	}
+	else if (commandName == "filter-tasks") {
+		return new FilterTasksCommand(tokens);
+	}
+	else if (commandName == "view-history") {
+		return new ViewHistoryCommand(tokens);
+	}
+	else if (commandName == "add-tag") {
+		return new AddTagCommand(tokens);
+	}
 
 
 	return nullptr;

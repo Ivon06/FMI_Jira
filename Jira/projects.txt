@@ -1,1 +1,19 @@
-0
+1
+1
+Jira
+Course project for OOP
+Finished
+4
+3
+4
+5
+6
+1
+1
+1
+Planning
+1710000000
+1910000000
+Finished
+1
+1

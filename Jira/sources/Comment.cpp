@@ -1,5 +1,6 @@
 
 #include "../headers/Comment.h"
+#include "../headers/DateUtils.h"
 
 Comment::Comment(unsigned int authorId, const std::string& content)
     : authorId(authorId), content(content), createdAt(std::time(nullptr)) {
@@ -56,7 +57,7 @@ void Comment::print(std::ostream& os) const {
         << '\n';
 
     os << "Created at: "
-        << createdAt;
+        << formatDate(createdAt);
 }
 
 std::ostream& operator<<(std::ostream& os, const Comment& comment) {

@@ -1,4 +1,5 @@
 #include "../../headers/tasks/Task.h"
+#include "../../headers/DateUtils.h"
 #include <stdexcept>
 
 unsigned int Task::nextId = 1;
@@ -67,7 +68,7 @@ std::string taskStatusToString(TaskStatus status) {
 }
 
 Task::Task(const std::string& title, const std::string& description, TaskType type, TaskPriority priority, unsigned int creatorId)
-    : id(nextId++), title(title), description(description), type(type), priority(priority), status(TaskStatus::ToDo), creatorId(creatorId), assigneeId(0), points(0), grade(0.0) {
+    : id(nextId++), title(title), description(description), type(type), priority(priority), status(TaskStatus::ToDo), creatorId(creatorId), assigneeId(0), points(0), grade(0.0), deadline(0) {
 }
 
 Task::Task(unsigned int id, const std::string& title, const std::string& description, TaskType type, TaskPriority priority, TaskStatus status, unsigned int creatorId, unsigned int assigneeId, std::time_t deadline, int points, double grade, const std::vector<Comment>& comments, const std::vector<std::string>& tags, const std::vector<std::string>& history)
@@ -166,10 +167,9 @@ void Task::setGrade(double grade) {
     addHistoryEntry("Task graded.");
 }
 
-void Task::setPoints(int points)
-{
-
-    this->grade = grade;
+void Task::setPoints(int points) {
+    this->points = points;
+    addHistoryEntry("Task points updated.");
 }
 
 void Task::addComment(const Comment& comment) {
@@ -305,7 +305,27 @@ void Task::print(std::ostream& os) const {
     os << "Status: " << taskStatusToString(status) << '\n';
     os << "Creator ID: " << creatorId << '\n';
     os << "Assignee ID: " << assigneeId << '\n';
-    os << "Deadline: " << deadline << '\n';
+
+    if (deadline != 0) {
+        os << "Deadline: "
+            << formatDate(deadline)
+            << '\n';
+    }
+
     os << "Points: " << points << '\n';
     os << "Grade: " << grade << '\n';
+
+    if (!tags.empty()) {
+        os << "Tags: ";
+
+        for (const std::string& tag : tags) {
+            os << tag << ' ';
+        }
+
+        os << '\n';
+    }
+
+    os << "Comments: "
+        << comments.size()
+        << '\n';
 }

@@ -14,7 +14,8 @@ void AssignTaskCommand::execute(Context& context) {
             "Usage: assign-task <task_id>");
     }
 
-    TaskService::assignTask(
-        context,
-        std::stoul(args[0]));
+    TaskService::assignTask(context, std::stoul(args[0]));
+
+    std::cout << "[System] Task assigned successfully" << std::endl;
+
 }

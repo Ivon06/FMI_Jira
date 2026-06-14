@@ -1,6 +1,10 @@
 #include "../../headers/commands/FilterTasksCommand.h"
 #include "../../headers/services/TaskService.h"
 
+FilterTasksCommand::FilterTasksCommand(const std::vector<std::string>& args)
+    : Command(args) {
+}
+
 void FilterTasksCommand::execute(Context& context) {
     if (args.size() != 1) {
         throw std::invalid_argument(

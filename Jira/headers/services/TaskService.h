@@ -26,6 +26,11 @@ public:
     static std::vector<Task*> searchTasks(Context& context, const std::string& keyword);
 
     static std::vector<Task*> filterByStatus(Context& context, TaskStatus status);
+
+    static void reviewTask(Context& context, unsigned int taskId);
+
+    static void approveTask(Context& context, unsigned int taskId);
+
 private:
     static void requireStudent(Context& context);
     static void requireTeachingAssistantOrLecturer(Context& context);

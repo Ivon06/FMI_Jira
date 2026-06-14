@@ -8,25 +8,16 @@ AddCommentCommand::AddCommentCommand(const std::vector<std::string>& args)
 }
 
 void AddCommentCommand::execute(Context& context) {
-
-    if (args.size() < 2) {
-        throw std::invalid_argument(
-            "Usage: add-comment <task_id> <comment>");
+    if (args.size() != 1) {
+        throw std::invalid_argument("Usage: add-comment <task_id>");
     }
 
-    std::string comment;
+    std::string content;
 
-    for (size_t i = 1; i < args.size(); i++) {
+    std::cout << "Comment: ";
+    std::getline(std::cin, content);
 
-        if (i > 1) {
-            comment += " ";
-        }
+    TaskService::addComment(context, std::stoul(args[0]), content);
 
-        comment += args[i];
-    }
-
-    TaskService::addComment(
-        context,
-        std::stoul(args[0]),
-        comment);
+    std::cout << "[System] Comment added." << std::endl;
 }

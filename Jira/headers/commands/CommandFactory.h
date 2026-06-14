@@ -1,3 +1,4 @@
+#pragma once
 #include "Command.h"
 #include "../../headers/commands/LoginCommand.h"
 #include "../../headers/commands/RegisterCommand.h"
@@ -22,7 +23,20 @@
 #include "../../headers/commands/ViewProjectCommand.h"
 #include "../../headers/commands/ViewTaskCommand.h"
 #include "../../headers/commands/MyTasksCommand.h"
-
+#include "../../headers/commands/UpcomingTaskCommand.h"
+#include "../../headers/commands/ListAllProjectsCommand.h"
+#include "../../headers/commands/ListAllTasksCommand.h"
+#include "../../headers/commands/StudentReportCommand.h"
+#include "../../headers/commands/StageReportCommand.h"
+#include "../../headers/commands/RemoveUserCommand.h"
+#include "../../headers/commands/ListTasksCommand.h"
+#include "../../headers/commands/ReviewTaskCommand.h"
+#include "../../headers/commands/ApproveTaskCommand.h"
+#include "../../headers/commands/HelpCommand.h"
+#include "../../headers/commands/SearchTasksCommand.h"
+#include "../../headers/commands/FilterTasksCommand.h"
+#include "../../headers/commands/ViewHistoryCommand.h"
+#include "../../headers/commands/AddTagCommand.h"
 
 class CommandFactory {
 

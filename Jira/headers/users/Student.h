@@ -1,3 +1,4 @@
+#pragma once
 #include "User.h"
 #include <vector>
 #include <string>
@@ -5,10 +6,7 @@
 class Student : public User {
 private:
     std::vector<unsigned int> joinedProjectIds;
-    int completedTasksCount;
-    int inProgressTasksCount;
-    int performanceScore;
-
+   
 protected:
     void print(std::ostream& os) const override;
 
@@ -36,13 +34,6 @@ public:
 
     const std::vector<unsigned int>& getJoinedProjectIds() const;
 
-    void markTaskStarted();
-    void markTaskCompleted(int taskPoints);
 
-    int getCompletedTasksCount() const;
-    int getInProgressTasksCount() const;
-    int getPerformanceScore() const;
-
-    //void serialize(std::ostream& os) const override;
-
+    
 };

@@ -153,3 +153,50 @@ Project* ProjectService::findProjectByTaskId(Context& context, unsigned int task
 
     return nullptr;
 }
+
+void ProjectService::removeUser(Context& context, const std::string& username) {
+    requireAdmin(context);
+
+    User* user = UserService::findUserByUsername(context, username);
+
+    if (user == nullptr) {
+        throw std::invalid_argument("User does not exist.");
+    }
+
+    if (user->getRole() == UserRole::Administrator) {
+        throw std::runtime_error("Administrator cannot be removed.");
+    }
+
+    if (UserService::getCurrentUser(context)->getUsername() == username) {
+        throw std::runtime_error("You cannot remove yourself.");
+    }
+
+    const unsigned int userId = user->getId();
+
+    for (Project& project : context.getProjects()) {
+        if (project.containsMember(userId)) {
+            project.removeMember(userId);
+        }
+    }
+
+    for (Task& task : context.getTasks()) {
+        if (task.getAssigneeId() == userId) {
+            task.assignTo(0);
+            task.addHistoryEntry(
+                "User removed from system. Task unassigned.");
+        }
+    }
+
+    auto& users = context.getUsers();
+
+    auto it = std::remove_if(
+        users.begin(),
+        users.end(),
+        [userId](const std::unique_ptr<User>& user) {
+            return user->getId() == userId;
+        });
+
+    users.erase(it, users.end());
+
+    context.markChanged();
+}

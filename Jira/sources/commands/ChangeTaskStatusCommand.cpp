@@ -8,14 +8,11 @@ ChangeTaskStatusCommand::ChangeTaskStatusCommand(const std::vector<std::string>&
 }
 
 void ChangeTaskStatusCommand::execute(Context& context) {
-
     if (args.size() != 2) {
-        throw std::invalid_argument(
-            "Usage: change-task-status <task_id> <status>");
+        throw std::invalid_argument("Usage: change-task-status <task_id> <status>");
     }
 
-    TaskService::changeStatus(
-        context,
-        std::stoul(args[0]),
-        stringToTaskStatus(args[1]));
+    TaskService::changeStatus(context, std::stoul(args[0]), stringToTaskStatus(args[1]));
+
+    std::cout << "[System] Task status changed successfully." << std::endl;
 }

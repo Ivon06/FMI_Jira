@@ -1,4 +1,6 @@
 #include "../../headers/stages/Stage.h"
+#include "../../headers/DateUtils.h"
+
 #include <algorithm>
 
 std::string stageStatusToString(StageStatus status) {
@@ -124,12 +126,13 @@ Stage Stage::deserialize(std::istream& is) {
     return Stage(name, startDate, endDate, stringToStageStatus(statusStr), taskIds);
 }
 
+
 void Stage::print(std::ostream& os) const {
-    os << "Stage: " << name << '\n'
-        << "Start date: " << startDate << '\n'
-        << "End date: " << endDate << '\n'
-        << "Status: " << stageStatusToString(status) << '\n'
-        << "Tasks count: " << taskIds.size() << '\n';
+    os << "Stage: " << name << '\n';
+    os << "Start date: " << formatDate(startDate) << '\n';
+    os << "End date: " << formatDate(endDate) << '\n';
+    os << "Status: " << stageStatusToString(status) << '\n';
+    os << "Tasks count: " << taskIds.size() << '\n';
 }
 
 std::ostream& operator<<(std::ostream& os, const Stage& stage) {

@@ -14,5 +14,8 @@ void GradeTaskCommand::execute(Context& context) {
             "Usage: grade-task <task_id> <grade>");
     }
 
-    TaskService::gradeTask(context,  std::stoul(args[0]),  std::stoi(args[1]));
+    TaskService::gradeTask(context,  std::stoul(args[0]),  std::stod(args[1]));
+    
+    std::cout << "[System] Task graded successfully." << std::endl;
+
 }

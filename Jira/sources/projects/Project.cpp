@@ -225,10 +225,21 @@ void Project::print(std::ostream& os) const {
     os << "Project ID: " << id << '\n';
     os << "Name: " << name << '\n';
     os << "Description: " << description << '\n';
-    os << "Status: " << projectStatusToString(status) << '\n';
-    os << "Members count: " << memberIds.size() << '\n';
-    os << "Tasks count: " << taskIds.size() << '\n';
-    os << "Stages count: " << stages.size() << '\n';
+    os << "Status: "
+        << projectStatusToString(status)
+        << '\n';
+
+    os << "Members: "
+        << memberIds.size()
+        << '\n';
+
+    os << "Tasks: "
+        << taskIds.size()
+        << '\n';
+
+    os << "Stages: "
+        << stages.size()
+        << '\n';
 }
 
 std::ostream& operator<<(std::ostream& os, const Project& project) {

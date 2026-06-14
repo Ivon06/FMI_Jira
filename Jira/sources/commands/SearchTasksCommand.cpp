@@ -1,6 +1,10 @@
 #include "../../headers/commands/SearchTasksCommand.h"
 #include "../../headers/services/TaskService.h"
 
+SearchTasksCommand::SearchTasksCommand(const std::vector<std::string>& args)
+    : Command(args) {
+}
+
 void SearchTasksCommand::execute(Context& context) {
     if (args.size() != 1) {
         throw std::invalid_argument(

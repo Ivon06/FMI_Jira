@@ -22,6 +22,8 @@ public:
 
     static Project* findProjectByTaskId(Context& context, unsigned int taskId);
 
+    static void removeUser(Context& context, const std::string& username);
+
 private:
     static void requireAdmin(Context& context);
     static void requireLecturer(Context& context);
