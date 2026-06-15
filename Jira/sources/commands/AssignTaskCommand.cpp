@@ -9,12 +9,30 @@ AssignTaskCommand::AssignTaskCommand(const std::vector<std::string>& args)
 
 void AssignTaskCommand::execute(Context& context) {
 
-    if (args.size() != 1) {
+    if (args.size() < 1) {
         throw std::invalid_argument(
-            "Usage: assign-task <task_id>");
+            "Usage: assign-task <task_title>");
     }
 
-    TaskService::assignTask(context, std::stoul(args[0]));
+    std::string name = "";
+
+    for (int i = 0; i < args.size(); i++)
+    {
+        name += args[i] + ' ';
+    }
+
+    while (!name.empty() && name.back() == ' ') {
+        name.pop_back();
+    }
+
+    Task* task = TaskService::findTaskByName(context, name);
+
+    if (!task)
+    {
+        throw std::invalid_argument("Task does not exist");
+    }
+
+    TaskService::assignTask(context, task->getId());
 
     std::cout << "[System] Task assigned successfully" << std::endl;
 

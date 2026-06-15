@@ -30,7 +30,7 @@ public:
     static void reviewTask(Context& context, unsigned int taskId);
 
     static void approveTask(Context& context, unsigned int taskId);
-
+    static Task* findTaskByName(Context& context, const std::string& name);
 private:
     static void requireStudent(Context& context);
     static void requireTeachingAssistantOrLecturer(Context& context);

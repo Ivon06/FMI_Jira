@@ -58,6 +58,19 @@ Task* TaskService::findTaskById(Context& context, unsigned int taskId)
 	return nullptr;
 }
 
+Task* TaskService::findTaskByName(Context& context, const std::string& name)
+{
+	for (Task& task : context.getTasks())
+	{
+		if (task.getTitle() == name)
+		{
+			return &task;
+		}
+	}
+
+	return nullptr;
+}
+
 void TaskService::assignTask(Context& context, unsigned int taskId) {
 	requireStudent(context);
 
@@ -307,7 +320,7 @@ bool TaskService::isValidStatusTransition(TaskStatus currentStatus, TaskStatus n
 }
 
 void TaskService::addTag(Context& context, unsigned int taskId, const std::string& tag) {
-	requireTeachingAssistantOrLecturer(context);
+	requireStudent(context);
 
 	Task* task = findTaskById(context, taskId);
 
